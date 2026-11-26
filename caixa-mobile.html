@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Caixa &amp; Fiado</title>
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+  <style>
+    .fiado-wa-card {
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 11px 12px;
+      margin-bottom: 10px;
+    }
+
+    .fiado-wa-card__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .fiado-wa-card__head strong {
+      font-size: 0.82rem;
+      color: var(--bg-dark);
+    }
+
+    .fiado-wa-preview {
+      background: var(--surface-light-shade);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      color: var(--bg-dark);
+      line-height: 1.38;
+    }
+
+    .fiado-actions-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .fiado-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1.5px solid var(--bg-dark);
+      background: var(--support-sage);
+      color: var(--bg-dark);
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="phone-frame" aria-label="Controle de Caixa e Fiado">
+    <!-- Cabeçalho Escuro -->
+    <header class="mobile-top-nav">
+      <div class="status-bar status-bar--dark">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="nav-title-row" style="padding-bottom: 12px;">
+        <a href="dashboard-mobile.html" class="back-btn" aria-label="Voltar para o Dashboard">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </a>
+        <div style="flex: 1; min-width: 0;">
+          <span class="badge-gold-pill" id="cxStatusBadge">Caixa Aberto</span>
+          <h2>Caixa &amp; Fiado</h2>
+        </div>
+        <span class="role-chip" id="cxOperatorChip">Operador</span>
+      </div>
+
+      <!-- Abas Superiores: Turno & Gaveta vs Controle de Fiado -->
+      <div class="est-top-tabs" role="tablist" aria-label="Seções do Caixa">
+        <button type="button" class="est-top-tab active" data-tab="turno">Turno &amp; Gaveta</button>
+        <button type="button" class="est-top-tab" id="tabBtnFiado" data-tab="fiado">Controle de Fiado</button>
+      </div>
+    </header>
+
+    <!-- Conteúdo Rolável -->
+    <section class="mobile-scroll-body dash-body">
+
+      <!-- =====================================
+           ABA 1: TURNO & CONFERÊNCIA DE GAVETA
+           ===================================== -->
+      <div id="viewTurno">
+        <!-- Card Destaque Saldo em Gaveta -->
+        <article class="dash-hero">
+          <div class="dash-hero__top">
+            <span class="dash-hero__label">Saldo Total em Gaveta</span>
+            <span class="dash-trend-pill" id="cxTurnTag">● Turno Ativo</span>
+          </div>
+          <strong class="dash-hero__value" id="cxTotalDrawer">R$ 439,00</strong>
+          <div class="dash-hero__meta">
+            <span id="cxSalesOnly">Vendas: R$ 339,00</span>
+            <span>•</span>
+            <span id="cxTrocoLabel">Fundo troco: R$ 100,00</span>
+          </div>
+        </article>
+
+        <!-- Detalhamento por Forma de Pagamento -->
+        <article class="dash-card">
+          <div class="dash-card__head">
+            <h3>Entradas &amp; Saídas do Turno</h3>
+            <small>Conferência</small>
+          </div>
+
+          <ul class="dash-legend-list">
+            <li>
+              <span class="dash-dot dash-dot--pix"></span>
+              <span class="dash-legend-name">Pix Recebido</span>
+              <strong id="cxPix">R$ 185,00</strong>
+            </li>
+            <li>
+              <span class="dash-dot dash-dot--card"></span>
+              <span class="dash-legend-name">Cartão (Déb/Créd)</span>
+              <strong id="cxCard">R$ 112,00</strong>
+            </li>
+            <li>
+              <span class="dash-dot dash-dot--cash"></span>
+              <span class="dash-legend-name">Dinheiro em Espécie</span>
+              <strong id="cxCash">R$ 42,00</strong>
+            </li>
+            <li>
+              <span class="dash-dot" style="background: var(--danger-red);"></span>
+              <span class="dash-legend-name">Sangrias / Retiradas</span>
+              <strong id="cxSangrias" style="color: var(--danger-red);">- R$ 0,00</strong>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Lançar Sangria ou Suprimento -->
+        <article class="dash-card">
+          <div class="dash-card__head">
+            <h3>Movimentar Gaveta</h3>
+            <small>Sangria ou Reforço</small>
+          </div>
+
+          <form id="cashMoveForm">
+            <div class="m-field-2col">
+              <div class="m-field">
+                <label for="moveType">Operação</label>
+                <select id="moveType">
+                  <option value="SANGRIA">Sangria (Retirada)</option>
+                  <option value="REFORCO">Reforço de Troco</option>
+                </select>
+              </div>
+              <div class="m-field">
+                <label for="moveAmount">Valor (R$)</label>
+                <input type="number" id="moveAmount" step="0.01" min="0.50" placeholder="20.00" required />
+              </div>
+            </div>
+            <div class="m-field">
+              <label for="moveReason">Motivo / Observação</label>
+              <input type="text" id="moveReason" placeholder="Ex: Compra de gelo ou pagamento entrega" required />
+            </div>
+            <button type="submit" class="btn-sage">MOVIMENTAÇÃO</button>
+            <button type="button" id="btnToggleShift" class="btn-shift-close" style="margin-top: 6px;">
+              FECHAR CAIXA
+            </button>
+          </form>
+        </article>
+
+        <!-- Histórico Recente de Movimentações -->
+        <article class="dash-card" id="cxHistoryCard" style="display: none;">
+          <div class="dash-card__head">
+            <h3>Movimentações do Turno</h3>
+            <small id="cxMovesCount">0 registros</small>
+          </div>
+          <div id="cxMovesList" class="est-list"></div>
+        </article>
+      </div>
+
+      <!-- =====================================
+           ABA 2: CONTROLE DE FIADO & WHATSAPP
+           ===================================== -->
+      <div id="viewFiado" style="display: none;">
+
+        <!-- Aviso se Fiado estiver desligado em Controle do App -->
+        <div id="fiadoOffBanner" class="est-readonly-note" style="display: none;">
+          O módulo de <strong>Fiado &amp; Recebimentos</strong> está desativado nas configurações da loja.
+        </div>
+
+        <!-- Card Resumo do Fiado -->
+        <article class="dash-hero" style="margin-bottom: 12px;">
+          <div class="dash-hero__top">
+            <span class="dash-hero__label">Total a Receber (Fiado)</span>
+            <button type="button" id="btnOpenNewFiado" class="badge-gold-pill" style="cursor: pointer;">+ Lançar Fiado</button>
+          </div>
+          <strong class="dash-hero__value" id="fiadoTotalOpen">R$ 150,00</strong>
+          <div class="dash-hero__meta">
+            <span id="fiadoDebtorsCount">2 clientes com saldo em aberto</span>
+          </div>
+        </article>
+
+        <!-- Integração WhatsApp Automático -->
+        <div class="fiado-wa-card">
+          <div class="fiado-wa-card__head">
+            <strong>Cobrança Automática WhatsApp</strong>
+            <label style="display:inline-flex; align-items:center; gap:5px; font-size:0.72rem; font-weight:700; cursor:pointer;">
+              <input type="checkbox" id="fiadoAutoWa" checked />
+              <span>Ativo</span>
+            </label>
+          </div>
+          <div class="fiado-wa-preview" id="fiadoWaPreview">
+            Olá Rafael Oliveira! Lembrando seu saldo de R$ 85,00 no GestãoFácil.
+          </div>
+        </div>
+
+        <!-- Formulário Rápido para Lançar Novo Fiado -->
+        <div id="newFiadoCard" class="m-card" style="display: none; margin-bottom: 12px; border: 1.5px solid var(--bg-dark);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h3 class="m-card__title" style="margin: 0;">Lançar na Caderneta</h3>
+            <button type="button" id="btnCloseNewFiado" class="m-del-btn" aria-label="Fechar">✕</button>
+          </div>
+
+          <form id="newFiadoForm">
+            <div class="m-field-2col">
+              <div class="m-field">
+                <label for="fiadoNome">Nome do Cliente *</label>
+                <input type="text" id="fiadoNome" placeholder="Ex: Rafael Oliveira" required />
+              </div>
+              <div class="m-field">
+                <label for="fiadoFone">WhatsApp *</label>
+                <input type="text" id="fiadoFone" placeholder="(13) 99711-2233" value="(13) 99711-2233" required />
+              </div>
+            </div>
+            <div class="m-field-2col">
+              <div class="m-field">
+                <label for="fiadoValor">Valor da Compra (R$) *</label>
+                <input type="number" id="fiadoValor" step="0.01" min="1" placeholder="35.00" required />
+              </div>
+              <div class="m-field">
+                <label for="fiadoLimite">Limite de Crédito (R$)</label>
+                <input type="number" id="fiadoLimite" step="10" min="10" value="200" />
+              </div>
+            </div>
+            <button type="submit" class="btn-sage">SALVAR FIADO</button>
+          </form>
+        </div>
+
+        <!-- Busca de Cliente Fiado -->
+        <div class="est-search-box" style="margin-bottom: 10px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="search" id="fiadoSearchInput" placeholder="Buscar cliente na caderneta..." aria-label="Buscar cliente fiado" />
+        </div>
+
+        <!-- Lista de Clientes do Fiado -->
+        <div id="fiadoClientsList" class="est-list"></div>
+      </div>
+
+    </section>
+
+    <!-- Barra de Navegação Inferior Unificada: Dashboard | Caixa | Pedido | Estoque -->
+    <nav class="bottom-nav" aria-label="Navegação Principal">
+      <a href="dashboard-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="caixa-mobile.html" class="bottom-nav__item active" aria-current="page">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20M6 15h4"/>
+        </svg>
+        <span>Caixa</span>
+      </a>
+      <a href="pedidos-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+        </svg>
+        <span>Pedido</span>
+      </a>
+      <a href="estoque-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <span>Estoque</span>
+      </a>
+    </nav>
+
+    <div id="cxToast" class="m-toast">Caixa atualizado!</div>
+  </main>
+
+  <script>
+    const state = JSON.parse(localStorage.getItem('gf_tenant_setup')) || {
+      modulos: { fiado_recebimentos: true },
+      equipe: [{ nome: 'Marcelo Marques', grupo: 'ADMIN_MASTER' }]
+    };
+
+    let appData = JSON.parse(localStorage.getItem('gf_app_data')) || {
+      caixa: { aberto: true, fundo_troco: 100.00, pix: 185.00, cartao: 112.00, dinheiro: 42.00, sangrias: 0.00, movimentacoes: [] },
+      pedidos: [],
+      estoque: [],
+      fiado: [
+        { id: 1, cliente: 'Rafael Oliveira', telefone: '(13) 99711-2233', limite: 200.00, saldo_devedor: 85.00, vencimento: 'Hoje' },
+        { id: 2, cliente: 'Camila Santos', telefone: '(13) 99644-8810', limite: 150.00, saldo_devedor: 65.00, vencimento: '22/11' },
+        { id: 3, cliente: 'Oficina do Beto', telefone: '(13) 99800-1122', limite: 300.00, saldo_devedor: 0.00, vencimento: 'Em dia' }
+      ]
+    };
+
+    if (!Array.isArray(appData.caixa.movimentacoes)) {
+      appData.caixa.movimentacoes = [];
+    }
+
+    const session = JSON.parse(localStorage.getItem('gf_active_session')) || state.equipe[0];
+    if (session && session.grupo === 'GARCOM') {
+      window.location.replace('pedidos-mobile.html');
+    }
+
+    const roleNames = { ADMIN_MASTER: 'Admin Master', ADM: 'Administrador', CAIXA: 'Operador Caixa' };
+    document.getElementById('cxOperatorChip').textContent = roleNames[session.grupo] || 'Operador';
+
+    const fmtBRL = (v) => Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    function showToast(msg) {
+      const t = document.getElementById('cxToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function saveAppData() {
+      localStorage.setItem('gf_app_data', JSON.stringify(appData));
+    }
+
+    // ==========================
+    // 1. TURNO & CONFERÊNCIA DE GAVETA
+    // ==========================
+    function renderCaixa() {
+      const cx = appData.caixa;
+      const vendas = cx.pix + cx.cartao + cx.dinheiro;
+      const saldoGaveta = cx.fundo_troco + vendas - (cx.sangrias || 0);
+
+      const statusBadge = document.getElementById('cxStatusBadge');
+      statusBadge.textContent = cx.aberto ? 'Caixa Aberto' : 'Caixa Fechado';
+      statusBadge.style.background = cx.aberto ? 'var(--accent-gold)' : 'var(--danger-red)';
+      statusBadge.style.color = cx.aberto ? 'var(--bg-dark)' : 'var(--surface-light)';
+      statusBadge.style.borderColor = cx.aberto ? 'var(--accent-gold)' : 'var(--danger-red)';
+
+      document.getElementById('cxTurnTag').textContent = cx.aberto ? '● Turno Ativo' : '● Turno Encerrado';
+      document.getElementById('cxTotalDrawer').textContent = fmtBRL(saldoGaveta);
+      document.getElementById('cxSalesOnly').textContent = `Vendas: ${fmtBRL(vendas)}`;
+      document.getElementById('cxTrocoLabel').textContent = `Fundo troco: ${fmtBRL(cx.fundo_troco)}`;
+
+      document.getElementById('cxPix').textContent = fmtBRL(cx.pix);
+      document.getElementById('cxCard').textContent = fmtBRL(cx.cartao);
+      document.getElementById('cxCash').textContent = fmtBRL(cx.dinheiro);
+      document.getElementById('cxSangrias').textContent = `- ${fmtBRL(cx.sangrias || 0)}`;
+
+      const toggleBtn = document.getElementById('btnToggleShift');
+      if (cx.aberto) {
+        toggleBtn.textContent = 'FECHAR CAIXA';
+        toggleBtn.className = 'btn-shift-close';
+      } else {
+        toggleBtn.textContent = 'REABRIR CAIXA';
+        toggleBtn.className = 'btn-shift-reopen';
+      }
+
+      const movesCard = document.getElementById('cxHistoryCard');
+      const movesList = document.getElementById('cxMovesList');
+      if (cx.movimentacoes.length > 0) {
+        movesCard.style.display = 'block';
+        document.getElementById('cxMovesCount').textContent =
+          cx.movimentacoes.length === 1 ? '1 registro' : `${cx.movimentacoes.length} registros`;
+        movesList.innerHTML = cx.movimentacoes.map(m => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(15,14,23,0.08); font-size:0.78rem;">
+            <div>
+              <strong>${m.motivo}</strong>
+              <small style="display:block; color:var(--text-muted-shade);">${m.tipo === 'SANGRIA' ? 'Sangria' : 'Reforço'} • ${m.hora}</small>
+            </div>
+            <strong style="color:${m.tipo === 'SANGRIA' ? 'var(--danger-red)' : 'var(--support-sage)'};">
+              ${m.tipo === 'SANGRIA' ? '-' : '+'} ${fmtBRL(m.valor)}
+            </strong>
+          </div>
+        `).join('');
+      } else {
+        movesCard.style.display = 'none';
+      }
+    }
+
+    document.getElementById('cashMoveForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!appData.caixa.aberto) {
+        showToast('Reabra o turno para movimentar a gaveta.');
+        return;
+      }
+
+      const type = document.getElementById('moveType').value;
+      const amount = parseFloat(document.getElementById('moveAmount').value);
+      const reason = document.getElementById('moveReason').value.trim();
+      if (isNaN(amount) || amount <= 0 || !reason) return;
+
+      const now = new Date();
+      const hora = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      if (type === 'SANGRIA') {
+        appData.caixa.sangrias = Number(((appData.caixa.sangrias || 0) + amount).toFixed(2));
+        showToast(`Sangria de ${fmtBRL(amount)} registrada.`);
+      } else {
+        appData.caixa.fundo_troco = Number((appData.caixa.fundo_troco + amount).toFixed(2));
+        showToast(`Reforço de ${fmtBRL(amount)} adicionado.`);
+      }
+
+      appData.caixa.movimentacoes.unshift({ tipo: type, valor: amount, motivo: reason, hora });
+      saveAppData();
+      e.target.reset();
+      renderCaixa();
+    });
+
+    document.getElementById('btnToggleShift').addEventListener('click', () => {
+      appData.caixa.aberto = !appData.caixa.aberto;
+      saveAppData();
+      renderCaixa();
+      showToast(appData.caixa.aberto ? 'Turno reaberto!' : 'Turno fechado com sucesso!');
+    });
+
+    // ==========================
+    // 2. CONTROLE DE FIADO & WHATSAPP
+    // ==========================
+    if (state.modulos && state.modulos.fiado_recebimentos === false) {
+      document.getElementById('fiadoOffBanner').style.display = 'block';
+    }
+
+    let fiadoSearch = '';
+
+    function buildWaMessage(client) {
+      return `Olá ${client.cliente}! Passando para lembrar do seu saldo em aberto no GestãoFácil no valor de ${fmtBRL(client.saldo_devedor)} (${client.vencimento || 'Em aberto'}).`;
+    }
+
+    function buildWaUrl(client) {
+      const digits = String(client.telefone || '').replace(/\D/g, '');
+      const phone = digits ? (digits.startsWith('55') ? digits : `55${digits}`) : '';
+      const text = encodeURIComponent(buildWaMessage(client));
+      return phone ? `https://wa.me/${phone}?text=${text}` : `https://wa.me/?text=${text}`;
+    }
+
+    function renderFiado() {
+      const lista = appData.fiado || [];
+      const totalAberto = lista.reduce((acc, f) => acc + Number(f.saldo_devedor || 0), 0);
+      const devedores = lista.filter(f => f.saldo_devedor > 0).length;
+
+      document.getElementById('fiadoTotalOpen').textContent = fmtBRL(totalAberto);
+      document.getElementById('fiadoDebtorsCount').textContent =
+        devedores === 1 ? '1 cliente com saldo em aberto' : `${devedores} clientes com saldo em aberto`;
+
+      const firstDebtor = lista.find(f => f.saldo_devedor > 0) || lista[0];
+      const previewEl = document.getElementById('fiadoWaPreview');
+      if (firstDebtor && previewEl) {
+        previewEl.textContent = `"${buildWaMessage(firstDebtor)}"`;
+      }
+
+      const listEl = document.getElementById('fiadoClientsList');
+      listEl.innerHTML = '';
+
+      const filtered = lista.filter(f => f.cliente.toLowerCase().includes(fiadoSearch));
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<p class="est-empty">Nenhum cliente encontrado na caderneta.</p>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const hasDebt = item.saldo_devedor > 0;
+        const pct = Math.min(100, Math.round((item.saldo_devedor / Math.max(1, item.limite)) * 100));
+
+        const card = document.createElement('article');
+        card.className = `est-item-card ${hasDebt ? 'est-item-card--critical' : ''}`;
+        card.innerHTML = `
+          <div class="est-item-card__top">
+            <div>
+              <span class="est-cat-tag">Limite: ${fmtBRL(item.limite)} • ${item.vencimento || 'Em dia'}</span>
+              <h3>${item.cliente}</h3>
+            </div>
+            <span class="hub-badge ${hasDebt ? 'hub-badge--red' : 'hub-badge--mint'}">
+              ${hasDebt ? 'Pendente' : 'Quitado'}
+            </span>
+          </div>
+
+          <div class="est-bar-track">
+            <div class="est-bar-fill ${hasDebt ? 'est-bar-fill--red' : ''}" style="width: ${pct}%;"></div>
+          </div>
+
+          <div class="est-item-card__bottom">
+            <div class="est-qty-info">
+              <strong>${fmtBRL(item.saldo_devedor)}</strong>
+              <small>${item.telefone || 'Sem telefone'}</small>
+            </div>
+
+            ${hasDebt ? `
+              <div class="fiado-actions-row">
+                <a href="${buildWaUrl(item)}" target="_blank" rel="noopener" class="fiado-wa-btn" data-client="${item.cliente}">
+                  WhatsApp
+                </a>
+                <button type="button" class="btn-sage fiado-pay-btn" data-id="${item.id}" style="width: auto; padding: 7px 11px; font-size: 0.72rem;">
+                  Quitar Pix
+                </button>
+              </div>
+            ` : `
+              <span class="est-status-ok">Em dia</span>
+            `}
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      listEl.querySelectorAll('.fiado-wa-btn').forEach(link => {
+        link.addEventListener('click', () => {
+          showToast(`Mensagem WhatsApp gerada para ${link.dataset.client}`);
+        });
+      });
+
+      listEl.querySelectorAll('.fiado-pay-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const client = appData.fiado.find(f => f.id === Number(btn.dataset.id));
+          if (!client || client.saldo_devedor <= 0) return;
+
+          const pago = client.saldo_devedor;
+          client.saldo_devedor = 0;
+          client.vencimento = 'Pago hoje';
+          appData.caixa.pix = Number((appData.caixa.pix + pago).toFixed(2));
+
+          saveAppData();
+          renderCaixa();
+          renderFiado();
+          showToast(`Recebido ${fmtBRL(pago)} de ${client.cliente}!`);
+        });
+      });
+    }
+
+    document.getElementById('fiadoAutoWa').addEventListener('change', (e) => {
+      showToast(e.target.checked ? 'Cobrança automática WhatsApp ativada' : 'Cobrança automática pausada');
+    });
+
+    document.getElementById('btnOpenNewFiado').addEventListener('click', () => {
+      const card = document.getElementById('newFiadoCard');
+      card.style.display = 'block';
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      document.getElementById('fiadoNome').focus();
+    });
+
+    document.getElementById('btnCloseNewFiado').addEventListener('click', () => {
+      document.getElementById('newFiadoCard').style.display = 'none';
+    });
+
+    document.getElementById('newFiadoForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('fiadoNome').value.trim();
+      const fone = document.getElementById('fiadoFone').value.trim() || '(13) 99999-0000';
+      const valor = parseFloat(document.getElementById('fiadoValor').value);
+      const limite = parseFloat(document.getElementById('fiadoLimite').value) || 200;
+      if (!nome || isNaN(valor) || valor <= 0) return;
+
+      const existing = appData.fiado.find(f => f.cliente.toLowerCase() === nome.toLowerCase());
+      if (existing) {
+        existing.saldo_devedor = Number((existing.saldo_devedor + valor).toFixed(2));
+        existing.telefone = fone;
+        existing.vencimento = 'Em aberto';
+      } else {
+        const nextId = appData.fiado.reduce((max, f) => Math.max(max, f.id), 0) + 1;
+        appData.fiado.unshift({
+          id: nextId,
+          cliente: nome,
+          telefone: fone,
+          limite,
+          saldo_devedor: valor,
+          vencimento: 'Em aberto'
+        });
+      }
+
+      saveAppData();
+      e.target.reset();
+      document.getElementById('fiadoFone').value = '(13) 99711-2233';
+      document.getElementById('newFiadoCard').style.display = 'none';
+      renderFiado();
+      showToast(`${fmtBRL(valor)} lançado para ${nome}.`);
+    });
+
+    document.getElementById('fiadoSearchInput').addEventListener('input', (e) => {
+      fiadoSearch = e.target.value.trim().toLowerCase();
+      renderFiado();
+    });
+
+    // Alternância de Abas (Turno vs Fiado)
+    function switchTab(tabName) {
+      document.querySelectorAll('.est-top-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === tabName);
+      });
+      document.getElementById('viewTurno').style.display = tabName === 'turno' ? 'block' : 'none';
+      document.getElementById('viewFiado').style.display = tabName === 'fiado' ? 'block' : 'none';
+    }
+
+    document.querySelectorAll('.est-top-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('tab') === 'fiado') switchTab('fiado');
+
+    renderCaixa();
+    renderFiado();
+  </script>
+</body>
+</html>

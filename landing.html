@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Sistema de Gestão para Hamburguerias, Food Trucks e Lanchonetes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER FIXO
+       ========================================================= -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a href="#topo" class="brand">
+        <span class="brand__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M4 11h16a1 1 0 0 1 1 1v.5a3.5 3.5 0 0 1-3.5 3.5h-11A3.5 3.5 0 0 1 3 12.5V12a1 1 0 0 1 1-1Z"/>
+            <path d="M4 11c0-3.5 3.6-6 8-6s8 2.5 8 6"/>
+            <path d="M5 19h14"/>
+          </svg>
+        </span>
+        <span class="brand__name">Gestão<strong>Fácil</strong></span>
+      </a>
+
+      <nav class="navbar__links" aria-label="Navegação principal">
+        <a href="#dores">Para quem é</a>
+        <a href="#modulos">Módulos</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#cadastro-negocio">Cadastrar Loja</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <a href="login.html" class="btn btn--ghost">Já sou cliente</a>
+        <a href="#cadastro-negocio" class="btn btn--primary">Criar meu negócio</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="topo">
+
+    <!-- =========================================================
+         HERO SECTION — JUNK FOOD & STREET FOOD
+         ========================================================= -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <div class="pill-tag">
+            <span class="pill-tag__dot"></span>
+            Feito para Hamburguerias, Food Trucks, Trailers & Lanchonetes
+          </div>
+
+          <h1 class="hero__title">
+            Sua chapa rodando no máximo. <span>Seu caixa e estoque sob controle.</span>
+          </h1>
+
+          <p class="hero__subtitle">
+            Chega de perder pedido na hora do pico, anotar fiado em papel ou ficar sem saber quantos pães e hambúrgueres sobraram. Controle balcão, garçom, ficha técnica e caixa — <strong>mesmo se a internet cair</strong>.
+          </p>
+
+          <div class="hero__cta-group">
+            <a href="#cadastro-negocio" class="btn btn--primary btn--lg">
+              Cadastrar meu estabelecimento
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="login.html" class="btn btn--outline btn--lg">Entrar na minha conta</a>
+          </div>
+
+          <ul class="hero__trust">
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              PDV Desktop + App Garçom & Consulta
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Modo Offline com Fila Inteligente
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Permissões por Cargo (ADM, Caixa, Garçom)
+            </li>
+          </ul>
+        </div>
+
+        <!-- Mockup Combinado: Painel Desktop + Mobile Garçom -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="mockup-desktop">
+            <div class="mockup-desktop__bar">
+              <span></span><span></span><span></span>
+              <small>PDV Balcão • Turno Noite Aberto</small>
+              <em class="badge-online">Online</em>
+            </div>
+            <div class="mockup-desktop__body">
+              <div class="mockup-kpis">
+                <div class="kpi-box">
+                  <span>Faturamento Hoje</span>
+                  <strong>R$ 2.840,00</strong>
+                </div>
+                <div class="kpi-box">
+                  <span>Pedidos na Chapa</span>
+                  <strong>12 ativos</strong>
+                </div>
+                <div class="kpi-box kpi-box--warn">
+                  <span>Blend 180g</span>
+                  <strong>18 un. restando</strong>
+                </div>
+              </div>
+
+              <div class="mockup-order-list">
+                <div class="order-row">
+                  <div>
+                    <strong>#048 • Combo Smash Duplo + Fritas</strong>
+                    <small>Mesa 04 • Garçom: Lucas</small>
+                  </div>
+                  <span class="tag-prep">Na chapa</span>
+                </div>
+                <div class="order-row">
+                  <div>
+                    <strong>#047 • X-Bacon Artesanal + Refri Lata</strong>
+                    <small>Balcão • Pago via PIX</small>
+                  </div>
+                  <span class="tag-done">Entregue</span>
+                </div>
+                <div class="order-row">
+                  <div>
+                    <strong>#046 • Hot Dog Especial Prensado (2x)</strong>
+                    <small>Cliente: Carlos • Conta Fiado</small>
+                  </div>
+                  <span class="tag-fiado">Fiado</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mockup-mobile">
+            <div class="mockup-mobile__notch"></div>
+            <span class="mockup-mobile__role">App Garçom</span>
+            <strong>Comanda #048</strong>
+            <p>2x Smash Duplo<br>1x Cheddar Bacon<br>2x Coca Lata</p>
+            <div class="mockup-mobile__btn">Enviar p/ Cozinha</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         DORES REAIS DO SEGMENTO (2 PERFIS)
+         ========================================================= -->
+    <section id="dores" class="section section--light">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Diagnóstico da Operação</span>
+          <h2>Qual desses cenários trava o seu lucro hoje?</h2>
+        </div>
+
+        <div class="pain-grid">
+          <article class="pain-card">
+            <span class="pain-card__tag">Perfil 01 • Balcão & Caderno</span>
+            <h3>“Anota pedido no papel, fiado no caderno e fecha o caixa na calculadora.”</h3>
+            <ul>
+              <li>Na hora do rush, comanda de papel some ou sai errada para a chapa.</li>
+              <li>Cliente compra fiado ou pacote de lanches e ninguém lembra o saldo exato.</li>
+              <li>Você vende bem a semana inteira, mas no domingo não sabe quanto lucrou de verdade.</li>
+            </ul>
+            <div class="pain-card__fix">
+              <strong>Solução GestãoFácil:</strong> Pedido digital direto para o caixa, fiado com abatimento parcial e fechamento de turno em 1 clique.
+            </div>
+          </article>
+
+          <article class="pain-card pain-card--dark">
+            <span class="pain-card__tag pain-card__tag--gold">Perfil 02 • Food Truck, Feira & Rua</span>
+            <h3>“Vai para evento ou ponto de rua e fica na mão quando o 4G oscila.”</h3>
+            <ul>
+              <li>Sistemas comuns travam ou perdem vendas quando a internet cai no meio do evento.</li>
+              <li>Você leva insumos para a feira e na volta não sabe o que foi vendido, devolvido ou perdido.</li>
+              <li>Todo funcionário vê o faturamento da loja porque não existe controle de acesso por cargo.</li>
+            </ul>
+            <div class="pain-card__fix pain-card__fix--gold">
+              <strong>Solução GestãoFácil:</strong> Venda offline com sincronização segura, reserva de carga para eventos e perfis separados para ADM, Caixa e Garçom.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         MÓDULOS DO SISTEMA (ESPELHADOS NO MER v5.4)
+         ========================================================= -->
+    <section id="modulos" class="section section--dark">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <span class="eyebrow eyebrow--gold">Arquitetura Modular</span>
+          <h2>Você ativa só o que a sua operação precisa</h2>
+          <p>Logo após cadastrar sua empresa, você configura a cara do app, escolhe os módulos e define as permissões da sua equipe.</p>
+        </div>
+
+        <div class="modules-grid">
+          <div class="module-card">
+            <div class="module-card__icon">🍔</div>
+            <h3>PDV Rápido & Comandas</h3>
+            <p>Atendimento ágil para balcão, mesas e delivery, com pagamento misto (PIX + Dinheiro + Cartão) e cálculo automático de troco.</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card__icon">🧾</div>
+            <h3>Ficha Técnica & Insumos</h3>
+            <p>Cadastre a receita de cada lanche. Ao vender ou produzir um lote, o sistema baixa automaticamente pão, carne, queijo e molhos.</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card__icon">📒</div>
+            <h3>Fiado & Pacotes Pré-Pagos</h3>
+            <p>Controle limite de fiado por cliente, receba pagamentos parciais e venda pacotes de combos para consumo posterior sem duplicar receita.</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card__icon">📱</div>
+            <h3>Cardápio Digital QR Code</h3>
+            <p>Gere um QR Code estável para suas mesas ou balcão. O cliente consulta os lanches e preços atualizados direto no celular.</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card__icon">🚚</div>
+            <h3>Eventos, Feiras & Rotas</h3>
+            <p>Separe estoque reservado para feiras e eventos itinerantes e faça a conferência de retorno sem bagunçar o estoque da loja fixa.</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card__icon">🔐</div>
+            <h3>Controle por Cargo (RBAC)</h3>
+            <p>Divida sua equipe entre <strong>Proprietário (Admin Master)</strong>, <strong>ADM</strong>, <strong>Caixa</strong> e <strong>Garçom</strong>, bloqueando telas sensíveis para cada função.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         COMO FUNCIONA (3 PASSOS)
+         ========================================================= -->
+    <section id="como-funciona" class="section section--light">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <span class="eyebrow">Implantação Imediata</span>
+          <h2>Do cadastro à equipe operando em 3 passos</h2>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-item">
+            <span class="step-item__num">01</span>
+            <h3>Cadastre seu Estabelecimento</h3>
+            <p>Preencha os dados da sua lanchonete, hamburgueria ou food truck e crie seu acesso como Proprietário (Admin Master).</p>
+          </div>
+          <div class="step-item">
+            <span class="step-item__num">02</span>
+            <h3>Configure Módulos e Equipe</h3>
+            <p>Na pré-tela administrativa, personalize a cara do app, ligue os módulos desejados e cadastre seus caixas e garçons.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-item__num">03</span>
+            <h3>Opere no Computador e Celular</h3>
+            <p>Cada funcionário entra com seu login e vê apenas as telas permitidas para o seu cargo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         FORMULÁRIO COMPLETO DE CADASTRO DO ESTABELECIMENTO (MER v5.4)
+         Tabelas: ESTABELECIMENTO + USUARIO (Admin Master)
+         ========================================================= -->
+    <section id="cadastro-negocio" class="section section--signup">
+      <div class="container signup-layout">
+        <div class="signup-pitch">
+          <span class="eyebrow eyebrow--gold">Comece Agora</span>
+          <h2>Crie o ambiente exclusivo do seu estabelecimento</h2>
+          <p>
+            Ao concluir o cadastro, você será direcionado imediatamente para o <strong>Menu Administrativo de Configuração</strong>, onde vai escolher os módulos do app e cadastrar seus funcionários.
+          </p>
+
+          <div class="signup-checklist">
+            <div class="check-row">
+              <span>✓</span>
+              <div>
+                <strong>Ambiente Multi-Estabelecimento Isolado</strong>
+                <small>Seus produtos, clientes, vendas e caixa ficam 100% protegidos no seu perfil.</small>
+              </div>
+            </div>
+            <div class="check-row">
+              <span>✓</span>
+              <div>
+                <strong>Você entra como Proprietário (Admin Master)</strong>
+                <small>Controle total para criar contas de ADM, Caixa e Garçom com permissões específicas.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="signup-card">
+          <div class="signup-card__header">
+            <h3>Cadastro do Estabelecimento</h3>
+            <p>Preencha os dados do negócio e do administrador principal</p>
+          </div>
+
+          <form id="establishmentSignupForm" novalidate>
+            <!-- BLOCO 1: TABELA ESTABELECIMENTO -->
+            <fieldset class="form-group-block">
+              <legend>1. Dados do Estabelecimento</legend>
+
+              <label class="field-label">Segmento principal *</label>
+              <div class="segment-selector" id="segmentSelector">
+                <button type="button" class="seg-btn active" data-segment="Hamburgueria">🍔 Hamburgueria</button>
+                <button type="button" class="seg-btn" data-segment="Food Truck">🚚 Food Truck</button>
+                <button type="button" class="seg-btn" data-segment="Lanchonete">🌭 Lanchonete</button>
+                <button type="button" class="seg-btn" data-segment="Ambulante / Trailer">🛒 Trailer / Rua</button>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="estNome">Nome Fantasia ou Razão Social *</label>
+                  <input type="text" id="estNome" name="nome" maxlength="150" placeholder="Ex: Brasa Burger & Co." required />
+                </div>
+              </div>
+
+              <div class="field-row field-row--2col">
+                <div class="field">
+                  <label for="estDocumento">CPF ou CNPJ</label>
+                  <input type="text" id="estDocumento" name="documento" maxlength="20" placeholder="00.000.000/0001-00" />
+                </div>
+                <div class="field">
+                  <label for="estTelefone">WhatsApp / Telefone *</label>
+                  <input type="tel" id="estTelefone" name="telefone" maxlength="20" placeholder="(13) 99999-0000" required />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="estEndereco">Endereço ou Ponto Fixo de Operação</label>
+                  <input type="text" id="estEndereco" name="endereco" maxlength="255" placeholder="Rua, número, bairro ou ponto de parada" />
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- BLOCO 2: TABELA USUARIO (PROPRIETÁRIO / ADMIN MASTER) -->
+            <fieldset class="form-group-block">
+              <legend>2. Dados do Proprietário (Admin Master)</legend>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="admNome">Seu Nome Completo *</label>
+                  <input type="text" id="admNome" name="adm_nome" maxlength="150" placeholder="Ex: Marcelo Marques" required />
+                </div>
+              </div>
+
+              <div class="field-row field-row--2col">
+                <div class="field">
+                  <label for="admEmail">E-mail de Acesso *</label>
+                  <input type="email" id="admEmail" name="adm_email" maxlength="150" placeholder="dono@sualoja.com.br" required />
+                </div>
+                <div class="field">
+                  <label for="admSenha">Senha Master (mín. 6 dígitos) *</label>
+                  <input type="password" id="admSenha" name="adm_senha" minlength="6" placeholder="••••••" required />
+                </div>
+              </div>
+            </fieldset>
+
+            <div id="signupError" class="alert-error" role="alert">
+              Por favor, preencha todos os campos obrigatórios (*) e crie uma senha com pelo menos 6 caracteres.
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full btn--lg">
+              CADASTRAR E CONFIGURAR MEU APP
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="brand">
+        <span class="brand__name">Gestão<strong>Fácil</strong></span>
+        <small>Sistema de Gestão Comercial e Financeira para Alimentação Rápida</small>
+      </div>
+      <div class="footer__links">
+        <a href="login.html">Acessar Sistema</a>
+        <a href="configurar-estabelecimento.html">Painel de Configuração</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Seleção de segmento
+    const segButtons = document.querySelectorAll('.seg-btn');
+    let selectedSegment = 'Hamburgueria';
+
+    segButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        segButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedSegment = btn.dataset.segment;
+      });
+    });
+
+    // Máscara simples de telefone
+    const telInput = document.getElementById('estTelefone');
+    telInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6) {
+        e.target.value = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      } else if (v.length > 2) {
+        e.target.value = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      } else {
+        e.target.value = v;
+      }
+    });
+
+    // Submissão do cadastro completo -> Salva e redireciona para a Pré-Tela Administrativa
+    const form = document.getElementById('establishmentSignupForm');
+    const errorBox = document.getElementById('signupError');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const estNome = document.getElementById('estNome').value.trim();
+      const estDocumento = document.getElementById('estDocumento').value.trim();
+      const estTelefone = document.getElementById('estTelefone').value.trim();
+      const estEndereco = document.getElementById('estEndereco').value.trim();
+      const admNome = document.getElementById('admNome').value.trim();
+      const admEmail = document.getElementById('admEmail').value.trim();
+      const admSenha = document.getElementById('admSenha').value;
+
+      if (!estNome || !estTelefone || !admNome || !admEmail.includes('@') || admSenha.length < 6) {
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      errorBox.style.display = 'none';
+
+      // Estrutura alinhada ao MER v5.4 (ESTABELECIMENTO + USUARIO + RBAC + MÓDULOS)
+      const tenantPayload = {
+        estabelecimento: {
+          id_estabelecimento: Date.now(),
+          nome: estNome,
+          segmento: selectedSegment,
+          documento: estDocumento || null,
+          telefone: estTelefone,
+          endereco: estEndereco || null,
+          criado_em: new Date().toISOString()
+        },
+        aparencia: {
+          cor_destaque: '#EBC310',
+          tema_nome: 'Amarelo Cheddar (Padrão)',
+          canais_venda: ['BALCAO', 'MESA', 'DELIVERY'],
+          mensagem_recibo: 'Obrigado pela preferência! Volte sempre.'
+        },
+        modulos: {
+          pdv_caixa: true,
+          estoque_ledger: true,
+          ficha_tecnica: true,
+          fiado_recebimentos: true,
+          pacotes_consumo: false,
+          cardapio_qr: true,
+          eventos_rotas_gps: selectedSegment === 'Food Truck' || selectedSegment === 'Ambulante / Trailer',
+          estoque_negativo_autorizado: false
+        },
+        equipe: [
+          {
+            id_usuario: 1,
+            nome: admNome,
+            email: admEmail,
+            grupo: 'ADMIN_MASTER',
+            grupo_label: 'Proprietário (Admin Master)',
+            ativo: true,
+            is_owner: true
+          }
+        ]
+      };
+
+      localStorage.setItem('gf_tenant_setup', JSON.stringify(tenantPayload));
+      localStorage.setItem('gf_usuario', JSON.stringify({ nome: admNome, email: admEmail, ativo: true }));
+
+      window.location.href = 'configurar-estabelecimento.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Estoque &amp; Insumos</title>
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+</head>
+<body>
+
+  <main class="phone-frame" aria-label="Consulta e Conferência de Estoque">
+    <!-- Cabeçalho Escuro -->
+    <header class="mobile-top-nav">
+      <div class="status-bar status-bar--dark">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="nav-title-row" style="padding-bottom: 12px;">
+        <a href="dashboard-mobile.html" class="back-btn" aria-label="Voltar para o Dashboard">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </a>
+        <div style="flex: 1; min-width: 0;">
+          <span class="badge-gold-pill" id="estCriticalSummary">3 críticos</span>
+          <h2>Estoque &amp; Insumos</h2>
+        </div>
+        <span class="role-chip" id="estModeChip">Conferência</span>
+      </div>
+
+      <!-- Abas Superiores: Itens vs Ficha Técnica -->
+      <div class="est-top-tabs" role="tablist">
+        <button type="button" class="est-top-tab active" data-view="itens">Saldo &amp; Contagem</button>
+        <button type="button" class="est-top-tab" data-view="fichas">Ficha Técnica</button>
+      </div>
+    </header>
+
+    <!-- Conteúdo Rolável -->
+    <section class="mobile-scroll-body est-body">
+
+      <!-- VISÃO 1: SALDO & CONFERÊNCIA FÍSICA -->
+      <div id="viewItens">
+        <!-- Barra de Pesquisa -->
+        <div class="est-search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="search" id="estSearchInput" placeholder="Buscar pão, carne, bebida..." aria-label="Buscar item no estoque" />
+        </div>
+
+        <!-- Filtros Rápidos -->
+        <div class="est-chips" role="group" aria-label="Filtrar estoque">
+          <button type="button" class="est-chip active" data-filter="TODOS">Todos</button>
+          <button type="button" class="est-chip" data-filter="CRITICO">Críticos</button>
+          <button type="button" class="est-chip" data-filter="Insumo">Insumos</button>
+          <button type="button" class="est-chip" data-filter="Bebida">Bebidas</button>
+        </div>
+
+        <!-- Aviso de Permissão (se Garçom ou Caixa) -->
+        <div id="estReadonlyBanner" class="est-readonly-note" style="display: none;">
+          Modo consulta: apenas Admin Master ou ADM podem ajustar quantidades.
+        </div>
+
+        <!-- Lista de Itens -->
+        <div id="estItemsList" class="est-list"></div>
+      </div>
+
+      <!-- VISÃO 2: FICHA TÉCNICA POR PRODUTO -->
+      <div id="viewFichas" style="display: none;">
+        <div id="fichaDisabledNote" class="est-readonly-note" style="display: none;">
+          O módulo de Ficha Técnica está desativado em Controle do App. Exibindo composição padrão.
+        </div>
+
+        <div class="est-list">
+          <article class="ficha-card">
+            <div class="ficha-card__head">
+              <strong>Smash Duplo Bacon</strong>
+              <span class="hub-badge hub-badge--gold">R$ 32,00</span>
+            </div>
+            <ul class="ficha-card__items">
+              <li><span>1 un</span> Pão Brioche Selado</li>
+              <li><span>2 un</span> Blend Bovino 180g</li>
+              <li><span>0.04 kg</span> Queijo Cheddar Fatiado</li>
+            </ul>
+          </article>
+
+          <article class="ficha-card">
+            <div class="ficha-card__head">
+              <strong>Combo Brasa Clássico</strong>
+              <span class="hub-badge hub-badge--gold">R$ 39,00</span>
+            </div>
+            <ul class="ficha-card__items">
+              <li><span>1 un</span> Pão Brioche Selado</li>
+              <li><span>1 un</span> Blend Bovino 180g</li>
+              <li><span>0.15 kg</span> Batata Palito Congelada</li>
+              <li><span>1 un</span> Refrigerante Lata 350ml</li>
+            </ul>
+          </article>
+
+          <article class="ficha-card">
+            <div class="ficha-card__head">
+              <strong>X-Burger Clássico</strong>
+              <span class="hub-badge hub-badge--gold">R$ 26,00</span>
+            </div>
+            <ul class="ficha-card__items">
+              <li><span>1 un</span> Pão Brioche Selado</li>
+              <li><span>1 un</span> Blend Bovino 180g</li>
+              <li><span>0.03 kg</span> Queijo Cheddar Fatiado</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Barra de Navegação Inferior Unificada -->
+    <nav class="bottom-nav" aria-label="Navegação Principal">
+      <a href="dashboard-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="caixa-mobile.html" id="navCaixa" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20M6 15h4"/>
+        </svg>
+        <span>Caixa</span>
+      </a>
+      <a href="pedidos-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+        </svg>
+        <span>Pedido</span>
+      </a>
+      <a href="estoque-mobile.html" class="bottom-nav__item active" aria-current="page">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <span>Estoque</span>
+      </a>
+    </nav>
+
+    <div id="estToast" class="m-toast">Contagem física atualizada!</div>
+  </main>
+
+  <script>
+    const state = JSON.parse(localStorage.getItem('gf_tenant_setup')) || {
+      modulos: { ficha_tecnica: true },
+      equipe: [{ nome: 'Proprietário', grupo: 'ADMIN_MASTER' }]
+    };
+
+    let appData = JSON.parse(localStorage.getItem('gf_app_data')) || {
+      caixa: { aberto: true, fundo_troco: 100, pix: 185, cartao: 112, dinheiro: 42, sangrias: 0 },
+      pedidos: [],
+      estoque: [
+        { id: 1, nome: 'Pão Brioche Selado', unidade: 'un', atual: 14, minimo: 30, categoria: 'Insumo' },
+        { id: 2, nome: 'Blend Bovino 180g', unidade: 'un', atual: 9, minimo: 25, categoria: 'Insumo' },
+        { id: 3, nome: 'Refrigerante Lata 350ml', unidade: 'un', atual: 8, minimo: 24, categoria: 'Bebida' },
+        { id: 4, nome: 'Queijo Cheddar Fatiado', unidade: 'kg', atual: 4.5, minimo: 2.0, categoria: 'Insumo' },
+        { id: 5, nome: 'Batata Palito Congelada', unidade: 'kg', atual: 12.0, minimo: 5.0, categoria: 'Insumo' }
+      ],
+      fiado: []
+    };
+
+    const session = JSON.parse(localStorage.getItem('gf_active_session')) || state.equipe[0];
+    const canEditStock = session.grupo === 'ADMIN_MASTER' || session.grupo === 'ADM';
+
+    function showToast(msg) {
+      const t = document.getElementById('estToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    if (!canEditStock) {
+      document.getElementById('estModeChip').textContent = 'Consulta';
+      document.getElementById('estReadonlyBanner').style.display = 'block';
+    }
+
+    // Trava RBAC para Garçom na aba Caixa
+    if (session.grupo === 'GARCOM') {
+      const navCaixa = document.getElementById('navCaixa');
+      navCaixa.style.opacity = '0.45';
+      navCaixa.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast('Caixa restrito ao Operador ou ADM.');
+      });
+    }
+
+    if (state.modulos && state.modulos.ficha_tecnica === false) {
+      document.getElementById('fichaDisabledNote').style.display = 'block';
+    }
+
+    let currentFilter = 'TODOS';
+    let searchTerm = '';
+
+    function updateCriticalHeader() {
+      const critCount = appData.estoque.filter(i => i.atual <= i.minimo).length;
+      const badge = document.getElementById('estCriticalSummary');
+      badge.textContent = critCount > 0 ? `${critCount} abaixo do mínimo` : 'Estoque saudável';
+      badge.style.background = critCount > 0 ? 'var(--danger-red)' : 'var(--support-sage)';
+      badge.style.color = critCount > 0 ? 'var(--surface-light)' : 'var(--bg-dark)';
+      badge.style.borderColor = critCount > 0 ? 'var(--danger-red)' : 'var(--support-sage)';
+    }
+
+    function adjustStock(id, delta) {
+      if (!canEditStock) return;
+      const item = appData.estoque.find(i => i.id === id);
+      if (!item) return;
+
+      const step = item.unidade === 'kg' ? 0.5 : 1;
+      const nextVal = Math.max(0, Number((item.atual + delta * step).toFixed(2)));
+      item.atual = nextVal;
+
+      localStorage.setItem('gf_app_data', JSON.stringify(appData));
+      renderStockList();
+      showToast(`${item.nome}: ${item.atual} ${item.unidade}`);
+    }
+
+    function renderStockList() {
+      updateCriticalHeader();
+      const listEl = document.getElementById('estItemsList');
+      listEl.innerHTML = '';
+
+      const filtered = appData.estoque.filter(item => {
+        const matchesSearch = item.nome.toLowerCase().includes(searchTerm);
+        if (!matchesSearch) return false;
+        if (currentFilter === 'CRITICO') return item.atual <= item.minimo;
+        if (currentFilter === 'Insumo' || currentFilter === 'Bebida') return item.categoria === currentFilter;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<p class="est-empty">Nenhum item encontrado para este filtro.</p>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const isCritical = item.atual <= item.minimo;
+        const pct = Math.min(100, Math.round((item.atual / (item.minimo * 2)) * 100));
+
+        const card = document.createElement('article');
+        card.className = `est-item-card ${isCritical ? 'est-item-card--critical' : ''}`;
+        card.innerHTML = `
+          <div class="est-item-card__top">
+            <div>
+              <span class="est-cat-tag">${item.categoria}</span>
+              <h3>${item.nome}</h3>
+            </div>
+            <span class="hub-badge ${isCritical ? 'hub-badge--red' : 'hub-badge--mint'}">
+              ${isCritical ? 'Crítico' : 'Normal'}
+            </span>
+          </div>
+
+          <div class="est-bar-track">
+            <div class="est-bar-fill ${isCritical ? 'est-bar-fill--red' : ''}" style="width: ${pct}%;"></div>
+          </div>
+
+          <div class="est-item-card__bottom">
+            <div class="est-qty-info">
+              <strong>${item.atual} ${item.unidade}</strong>
+              <small>Mínimo: ${item.minimo} ${item.unidade}</small>
+            </div>
+
+            ${canEditStock ? `
+              <div class="est-stepper" aria-label="Ajustar contagem de ${item.nome}">
+                <button type="button" class="est-step-btn" data-id="${item.id}" data-delta="-1" aria-label="Diminuir">−</button>
+                <span>Contar</span>
+                <button type="button" class="est-step-btn est-step-btn--plus" data-id="${item.id}" data-delta="1" aria-label="Aumentar">+</button>
+              </div>
+            ` : `
+              <span class="est-status-ok">${item.atual > 0 ? 'Disponível' : 'Esgotado'}</span>
+            `}
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      if (canEditStock) {
+        listEl.querySelectorAll('.est-step-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            adjustStock(Number(btn.dataset.id), Number(btn.dataset.delta));
+          });
+        });
+      }
+    }
+
+    // Eventos de busca, filtro e abas
+    document.getElementById('estSearchInput').addEventListener('input', (e) => {
+      searchTerm = e.target.value.trim().toLowerCase();
+      renderStockList();
+    });
+
+    document.querySelectorAll('.est-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.est-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.filter;
+        renderStockList();
+      });
+    });
+
+    document.querySelectorAll('.est-top-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.est-top-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const isItens = tab.dataset.view === 'itens';
+        document.getElementById('viewItens').style.display = isItens ? 'block' : 'none';
+        document.getElementById('viewFichas').style.display = isItens ? 'none' : 'block';
+      });
+    });
+
+    renderStockList();
+  </script>
+</body>
+</html>

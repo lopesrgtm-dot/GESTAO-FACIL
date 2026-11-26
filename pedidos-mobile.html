@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Pedidos &amp; Fila</title>
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+</head>
+<body>
+
+  <main class="phone-frame" aria-label="Pedidos e Fila de Preparo">
+    <!-- Cabeçalho Escuro -->
+    <header class="mobile-top-nav">
+      <div class="status-bar status-bar--dark">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="nav-title-row" style="padding-bottom: 12px;">
+        <a href="dashboard-mobile.html" class="back-btn" aria-label="Voltar para o Dashboard">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </a>
+        <div style="flex: 1; min-width: 0;">
+          <span class="badge-gold-pill" id="pedActiveSummary">4 ativos</span>
+          <h2>Pedidos &amp; Fila</h2>
+        </div>
+        <button type="button" id="btnOpenNewOrder" class="btn-gold btn-gold--sm" style="width: auto; padding: 8px 12px;">
+          + Novo
+        </button>
+      </div>
+
+      <!-- Abas de Filtro por Etapa -->
+      <div class="est-top-tabs" role="tablist" aria-label="Filtrar status dos pedidos">
+        <button type="button" class="est-top-tab active" data-status="ATIVOS">Em Aberto</button>
+        <button type="button" class="est-top-tab" data-status="EM_PREPARO">Preparando</button>
+        <button type="button" class="est-top-tab" data-status="PRONTO">Prontos</button>
+        <button type="button" class="est-top-tab" data-status="ENTREGUE">Entregues</button>
+      </div>
+    </header>
+
+    <!-- Conteúdo Rolável -->
+    <section class="mobile-scroll-body est-body">
+
+      <!-- Aviso caso o módulo esteja desligado no Controle do App -->
+      <div id="pedModuleOffBanner" class="est-readonly-note" style="display: none;">
+        O módulo <strong>Pedidos &amp; Fila de Cozinha</strong> está desativado em Controle do App. Você ainda pode registrar vendas diretas aqui.
+      </div>
+
+      <!-- Lista de Comandas / Pedidos -->
+      <div id="pedOrdersList" class="est-list"></div>
+
+      <!-- Formulário Rápido de Novo Pedido (Expansível) -->
+      <div id="newOrderCard" class="m-card" style="display: none; margin-top: 12px; border: 1.5px solid var(--bg-dark);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <h3 class="m-card__title" style="margin: 0;">Novo Pedido Rápido</h3>
+          <button type="button" id="btnCloseNewOrder" class="m-del-btn" aria-label="Fechar formulário">✕</button>
+        </div>
+
+        <form id="newOrderForm">
+          <div class="m-field-2col">
+            <div class="m-field">
+              <label for="ordCliente">Mesa ou Cliente *</label>
+              <input type="text" id="ordCliente" placeholder="Ex: Mesa 05 ou Ana" required />
+            </div>
+            <div class="m-field">
+              <label for="ordCanal">Canal *</label>
+              <select id="ordCanal">
+                <option value="BALCAO">Balcão</option>
+                <option value="MESA">Mesa</option>
+                <option value="DELIVERY">Delivery</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="m-field">
+            <label for="ordItens">Itens do Pedido *</label>
+            <input type="text" id="ordItens" placeholder="Ex: 2x Smash Duplo, 1x Refri Lata" required />
+          </div>
+
+          <div class="m-field-2col">
+            <div class="m-field">
+              <label for="ordTotal">Valor Total (R$) *</label>
+              <input type="number" id="ordTotal" step="0.01" min="0.50" placeholder="45.00" required />
+            </div>
+            <div class="m-field">
+              <label for="ordPagamento">Pagamento</label>
+              <select id="ordPagamento">
+                <option value="pix">Pix</option>
+                <option value="cartao">Cartão</option>
+                <option value="dinheiro">Dinheiro</option>
+                <option value="fiado">Fiado</option>
+              </select>
+            </div>
+          </div>
+
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.78rem; margin-bottom: 12px; cursor: pointer;">
+            <input type="checkbox" id="ordDirectSale" />
+            <span>Entrega imediata (pular cozinha e concluir agora)</span>
+          </label>
+
+          <button type="submit" class="btn-gold">LANÇAR PEDIDO</button>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- Barra de Navegação Inferior Unificada -->
+    <nav class="bottom-nav" aria-label="Navegação Principal">
+      <a href="dashboard-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="caixa-mobile.html" id="navCaixa" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20M6 15h4"/>
+        </svg>
+        <span>Caixa</span>
+      </a>
+      <a href="pedidos-mobile.html" class="bottom-nav__item active" aria-current="page">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+        </svg>
+        <span>Pedido</span>
+      </a>
+      <a href="estoque-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <span>Estoque</span>
+      </a>
+    </nav>
+
+    <div id="pedToast" class="m-toast">Pedido atualizado!</div>
+  </main>
+
+  <script>
+    const state = JSON.parse(localStorage.getItem('gf_tenant_setup')) || {
+      aparencia: { canais_venda: ['BALCAO', 'MESA', 'DELIVERY'] },
+      modulos: { pedidos_cozinha: true },
+      equipe: [{ nome: 'Proprietário', grupo: 'ADMIN_MASTER' }]
+    };
+
+    let appData = JSON.parse(localStorage.getItem('gf_app_data')) || {
+      caixa: { aberto: true, fundo_troco: 100.00, pix: 185.00, cartao: 112.00, dinheiro: 42.00, sangrias: 0.00 },
+      pedidos: [
+        { id: 31, cliente: 'Mesa 04', canal: 'MESA', itens: '2x Smash Duplo, 1x Batata', total: 68.00, status: 'EM_PREPARO', hora: '11:18' },
+        { id: 32, cliente: 'Balcão • Ana', canal: 'BALCAO', itens: '1x Combo Brasa Bacon', total: 39.00, status: 'PRONTO', hora: '11:14' },
+        { id: 33, cliente: 'Delivery • Carlos', canal: 'DELIVERY', itens: '2x X-Salada, 2x Refri Lata', total: 54.00, status: 'EM_PREPARO', hora: '11:20' },
+        { id: 34, cliente: 'Mesa 02', canal: 'MESA', itens: '1x Porção Onion Rings', total: 24.00, status: 'PRONTO', hora: '11:10' },
+        { id: 30, cliente: 'Balcão • João', canal: 'BALCAO', itens: '1x X-Burger Clássico', total: 26.00, status: 'ENTREGUE', hora: '10:55' }
+      ],
+      estoque: [],
+      fiado: []
+    };
+
+    const session = JSON.parse(localStorage.getItem('gf_active_session')) || state.equipe[0];
+    const fmtBRL = (v) => Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    function showToast(msg) {
+      const t = document.getElementById('pedToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    // Trava RBAC para Garçom na aba Caixa
+    if (session && session.grupo === 'GARCOM') {
+      const navCaixa = document.getElementById('navCaixa');
+      navCaixa.style.opacity = '0.45';
+      navCaixa.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast('Caixa restrito ao Operador ou ADM.');
+      });
+    }
+
+    // Aviso se o módulo estiver desativado
+    if (state.modulos && state.modulos.pedidos_cozinha === false) {
+      document.getElementById('pedModuleOffBanner').style.display = 'block';
+      document.getElementById('ordDirectSale').checked = true;
+    }
+
+    // Filtra canais ativos configurados pela loja
+    const canaisAtivos = (state.aparencia && state.aparencia.canais_venda) || ['BALCAO', 'MESA', 'DELIVERY'];
+    const canalSelect = document.getElementById('ordCanal');
+    Array.from(canalSelect.options).forEach(opt => {
+      if (!canaisAtivos.includes(opt.value)) opt.remove();
+    });
+
+    let currentStatusFilter = 'ATIVOS';
+
+    const statusMeta = {
+      EM_PREPARO: { label: 'Preparando', badgeCls: 'hub-badge--gold', next: 'PRONTO', nextLabel: 'Marcar Pronto' },
+      PRONTO: { label: 'Pronto', badgeCls: 'hub-badge--mint', next: 'ENTREGUE', nextLabel: 'Concluir Entrega' },
+      ENTREGUE: { label: 'Entregue', badgeCls: 'hub-badge--neutral', next: null, nextLabel: '' }
+    };
+
+    function syncStorage() {
+      localStorage.setItem('gf_app_data', JSON.stringify(appData));
+      localStorage.setItem('gf_pedidos', JSON.stringify(appData.pedidos));
+    }
+
+    function advanceOrder(id) {
+      const ord = appData.pedidos.find(p => p.id === id);
+      if (!ord) return;
+      const meta = statusMeta[ord.status] || statusMeta.EM_PREPARO;
+      if (!meta.next) return;
+
+      ord.status = meta.next;
+      syncStorage();
+      renderOrders();
+      showToast(`Pedido #${ord.id}: ${statusMeta[ord.status].label}`);
+    }
+
+    function renderOrders() {
+      const ativosCount = appData.pedidos.filter(p => p.status !== 'ENTREGUE').length;
+      document.getElementById('pedActiveSummary').textContent =
+        ativosCount === 1 ? '1 ativo' : `${ativosCount} ativos`;
+
+      const listEl = document.getElementById('pedOrdersList');
+      listEl.innerHTML = '';
+
+      const filtered = appData.pedidos.filter(p => {
+        if (currentStatusFilter === 'ATIVOS') return p.status !== 'ENTREGUE';
+        return p.status === currentStatusFilter;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<p class="est-empty">Nenhum pedido nesta etapa.</p>`;
+        return;
+      }
+
+      filtered.forEach(ord => {
+        const meta = statusMeta[ord.status] || statusMeta.EM_PREPARO;
+        const card = document.createElement('article');
+        card.className = 'est-item-card';
+        card.innerHTML = `
+          <div class="est-item-card__top">
+            <div>
+              <span class="est-cat-tag">#${ord.id} • ${ord.canal} • ${ord.hora}</span>
+              <h3>${ord.cliente}</h3>
+            </div>
+            <span class="hub-badge ${meta.badgeCls}">${meta.label}</span>
+          </div>
+
+          <p style="font-size: 0.78rem; color: var(--text-muted-shade); margin: 6px 0 10px; line-height: 1.4;">
+            ${ord.itens}
+          </p>
+
+          <div class="est-item-card__bottom">
+            <div class="est-qty-info">
+              <strong>${fmtBRL(ord.total)}</strong>
+            </div>
+
+            ${meta.next ? `
+              <button type="button" class="btn-gold btn-gold--sm ped-advance-btn" data-id="${ord.id}" style="width: auto; padding: 7px 12px; font-size: 0.74rem;">
+                ${meta.nextLabel}
+              </button>
+            ` : `
+              <span class="est-status-ok">Finalizado</span>
+            `}
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      listEl.querySelectorAll('.ped-advance-btn').forEach(btn => {
+        btn.addEventListener('click', () => advanceOrder(Number(btn.dataset.id)));
+      });
+    }
+
+    // Abas de etapa
+    document.querySelectorAll('.est-top-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.est-top-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentStatusFilter = tab.dataset.status;
+        renderOrders();
+      });
+    });
+
+    // Abrir / Fechar formulário de novo pedido
+    const newOrderCard = document.getElementById('newOrderCard');
+    document.getElementById('btnOpenNewOrder').addEventListener('click', () => {
+      newOrderCard.style.display = 'block';
+      newOrderCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      document.getElementById('ordCliente').focus();
+    });
+
+    document.getElementById('btnCloseNewOrder').addEventListener('click', () => {
+      newOrderCard.style.display = 'none';
+    });
+
+    document.getElementById('newOrderForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const cliente = document.getElementById('ordCliente').value.trim();
+      const canal = document.getElementById('ordCanal').value;
+      const itens = document.getElementById('ordItens').value.trim();
+      const total = parseFloat(document.getElementById('ordTotal').value);
+      const pagamento = document.getElementById('ordPagamento').value;
+      const direct = document.getElementById('ordDirectSale').checked;
+
+      if (!cliente || !itens || isNaN(total) || total <= 0) return;
+
+      const now = new Date();
+      const hora = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      const nextId = appData.pedidos.reduce((max, p) => Math.max(max, p.id), 30) + 1;
+
+      appData.pedidos.unshift({
+        id: nextId,
+        cliente,
+        canal,
+        itens,
+        total,
+        status: direct ? 'ENTREGUE' : 'EM_PREPARO',
+        hora
+      });
+
+      // Atualiza o caixa automaticamente conforme o meio de pagamento
+      if (pagamento === 'pix') appData.caixa.pix = Number((appData.caixa.pix + total).toFixed(2));
+      else if (pagamento === 'cartao') appData.caixa.cartao = Number((appData.caixa.cartao + total).toFixed(2));
+      else if (pagamento === 'dinheiro') appData.caixa.dinheiro = Number((appData.caixa.dinheiro + total).toFixed(2));
+
+      syncStorage();
+      e.target.reset();
+      newOrderCard.style.display = 'none';
+      renderOrders();
+      showToast(direct ? `Venda #${nextId} concluída!` : `Pedido #${nextId} enviado para preparo!`);
+    });
+
+    renderOrders();
+  </script>
+</body>
+</html>

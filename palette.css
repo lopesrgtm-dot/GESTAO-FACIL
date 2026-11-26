@@ -1,0 +1,20 @@
+/* ==========================================================================
+   PALETA OFICIAL GESTÃOFÁCIL — 6 PRINCIPAIS + 6 TONALIDADES DARK
+   ========================================================================== */
+:root {
+  /* 1. PALETA PRINCIPAL (6 CORES OFICIAIS) */
+  --bg-dark: #0F0E17;          /* Fundo principal Dark, cabeçalhos, textos sobre amarelo */
+  --accent-gold: #FFFFA2;      /* Botões principais, destaque de faturamento, alertas */
+  --support-sage: #ABD1C6;     /* Status Online, estoque saudável, entradas e Pix */
+  --surface-light: #FFFFFE;    /* Cards, telas claras e textos sobre fundo escuro */
+  --text-muted: #A7A9BE;       /* Placeholders, ícones inativos e divisórias */
+  --danger-red: #EF4565;       /* Erros, saídas/despesas, cancelar e estoque zerado */
+
+  /* 2. TONALIDADES DARK (SHADES MAIS ESCUROS DAS MESMAS 6 CORES) */
+  --bg-dark-shade: #07060C;        /* Sombras profundas e bordas sobre fundo escuro */
+  --accent-gold-shade: #E6C229;    /* Borda de cards amarelos, badges ("Hamburgueria") e hover */
+  --support-sage-shade: #3E7B6B;   /* Textos e ícones de confirmação sobre fundo claro */
+  --surface-light-shade: #F3F4F8;  /* Fundo das áreas roláveis atrás dos cards brancos */
+  --text-muted-shade: #5E6073;     /* Subtítulos e rótulos legíveis sobre fundo claro */
+  --danger-red-shade: #BE2946;     /* Bordas críticas e estado pressionado de exclusão */
+}

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Controle do Estabelecimento</title>
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+</head>
+
+<body>
+
+  <main class="phone-frame" aria-label="Controle do Estabelecimento Mobile">
+    <!-- Cabeçalho do Estabelecimento -->
+    <header class="mobile-top-nav">
+      <div class="status-bar status-bar--dark">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="nav-title-row" style="padding-bottom: 10px;">
+        <a href="inicio-mobile.html" class="back-btn" aria-label="Voltar para a Tela Inicial">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+        </a>
+        <div>
+          <span class="badge-gold-pill" id="ctrlSegmento">Hamburgueria</span>
+          <h2 id="ctrlStoreName">Brasa Burger &amp; Co.</h2>
+          <small id="ctrlOwnerLabel" style="color: var(--text-muted); font-size: 0.72rem;">
+            Proprietário (Admin Master)
+          </small>
+        </div>
+      </div>
+
+      <!-- Abas Segmentadas (Visíveis apenas para Dono / ADM) -->
+      <nav class="m-tabs" id="adminTabsNav" aria-label="Controle do Estabelecimento">
+        <button type="button" class="m-tab active" data-target="panel-modulos">Módulos</button>
+        <button type="button" class="m-tab" data-target="panel-equipe">Equipe (<span id="tabTeamCount">1</span>)</button>
+        <button type="button" class="m-tab" data-target="panel-cara">Cara do App</button>
+      </nav>
+    </header>
+
+    <!-- =====================================================
+         ÁREA DO DONO / ADM (GERENCIAMENTO COMPLETO)
+         ===================================================== -->
+    <section id="adminWorkspace" class="mobile-scroll-body mobile-scroll-body--tabs">
+
+      <!-- ABA 1: MÓDULOS DO APP DO ESTABELECIMENTO -->
+      <div id="panel-modulos" class="m-panel active">
+        <div class="section-caption">
+          <strong>Módulos Ativos na Loja</strong>
+          <small>Ligue ou desligue recursos conforme sua operação.</small>
+        </div>
+
+        <div class="m-mod-list">
+          <div class="m-mod-item m-mod-item--locked">
+            <div>
+              <strong>Frente de Caixa &amp; Vendas</strong>
+              <small>Núcleo obrigatório (Turnos, Sangria e Pagamentos)</small>
+            </div>
+            <input type="checkbox" checked disabled />
+          </div>
+
+          <div class="m-mod-item m-mod-item--locked">
+            <div>
+              <strong>Catálogo &amp; Controle de Estoque</strong>
+              <small>Núcleo obrigatório (Entradas, Saídas e Saldo)</small>
+            </div>
+            <input type="checkbox" checked disabled />
+          </div>
+
+          <label class="m-mod-item">
+            <div>
+              <strong>Pedidos &amp; Fila de Cozinha</strong>
+              <small>Comandas por etapa (Na Fila, Preparando e Pronto) para lanchonete e food truck</small>
+            </div>
+            <input type="checkbox" class="m-mod-chk" data-mod="pedidos_cozinha" />
+          </label>
+
+          <label class="m-mod-item">
+            <div>
+              <strong>Ficha Técnica de Produtos</strong>
+              <small>Baixa automática de ingredientes a cada venda</small>
+            </div>
+            <input type="checkbox" class="m-mod-chk" data-mod="ficha_tecnica" />
+          </label>
+
+          <label class="m-mod-item">
+            <div>
+              <strong>Fiado &amp; Contas a Receber</strong>
+              <small>Limite de crédito por cliente e quitação parcial</small>
+            </div>
+            <input type="checkbox" class="m-mod-chk" data-mod="fiado_recebimentos" />
+          </label>
+
+          <label class="m-mod-item">
+            <div>
+              <strong>Pacotes Pré-Pagos</strong>
+              <small>Cartela de combos para consumo futuro</small>
+            </div>
+            <input type="checkbox" class="m-mod-chk" data-mod="pacotes_consumo" />
+          </label>
+
+          <label class="m-mod-item">
+            <div>
+              <strong>Cardápio Digital QR Code</strong>
+              <small>Vitrine pública para mesas e balcão</small>
+            </div>
+            <input type="checkbox" class="m-mod-chk" data-mod="cardapio_qr" />
+          </label>
+
+          <label class="m-mod-item">
+            <div>
+              <strong>Eventos, Feiras &amp; Rotas</strong>
+              <small>Reserva de carga e conferência de retorno</small>
+            </div>
+            <input type="checkbox" class="m-mod-chk" data-mod="eventos_rotas_gps" />
+          </label>
+
+          <label class="m-mod-item">
+            <div>
+              <strong>Venda com Estoque Zerado</strong>
+              <small>Permite lançar venda sem saldo com senha do gerente</small>
+            </div>
+            <input type="checkbox" class="m-mod-chk" data-mod="estoque_negativo_autorizado" />
+          </label>
+        </div>
+      </div>
+
+      <!-- ABA 2: CADASTRO DE USUÁRIOS & CARGOS -->
+      <div id="panel-equipe" class="m-panel">
+        <div class="m-card">
+          <h3 class="m-card__title">Adicionar Funcionário</h3>
+          <form id="mAddUserForm" class="m-user-form">
+            <div class="m-field">
+              <label for="uNome">Nome completo *</label>
+              <input type="text" id="uNome" placeholder="Ex: Lucas Oliveira" required />
+            </div>
+
+            <div class="m-field">
+              <label for="uEmail">E-mail de acesso *</label>
+              <input type="email" id="uEmail" placeholder="lucas@sualoja.com.br" required />
+            </div>
+
+            <div class="m-field">
+              <label for="uSenha">Senha inicial (mín. 6 dígitos) *</label>
+              <input type="password" id="uSenha" minlength="6" placeholder="••••••" required />
+            </div>
+
+            <div class="m-field">
+              <label for="uGrupo">Cargo e Permissão *</label>
+              <select id="uGrupo">
+                <option value="GARCOM">4 — Garçom (Somente Pedidos &amp; Cardápio)</option>
+                <option value="CAIXA">3 — Caixa (Vendas, Turno &amp; Fiado)</option>
+                <option value="ADM">2 — Gerente / ADM (Estoque, Relatórios &amp; Equipe)</option>
+                <option value="ADMIN_MASTER">1 — Admin Master (Acesso Total)</option>
+              </select>
+            </div>
+
+            <div id="uPermHint" class="perm-hint-box">
+              ✅ Lança pedidos e comandas<br>
+              🚫 Sem acesso ao Dashboard ou Caixa
+            </div>
+
+            <button type="submit" class="btn-gold btn-gold--sm">+ Cadastrar Funcionário</button>
+          </form>
+        </div>
+
+        <div class="section-caption" style="margin-top: 14px;">
+          <strong>Usuários do Estabelecimento</strong>
+          <small>Controle de acesso ativo por cargo</small>
+        </div>
+
+        <div id="mTeamList" class="m-team-list"></div>
+      </div>
+
+      <!-- ABA 3: CARA DO APP -->
+      <div id="panel-cara" class="m-panel">
+        <div class="m-card">
+          <h3 class="m-card__title">Personalização Visual</h3>
+
+          <div class="m-field">
+            <label for="mStoreTitleInput">Nome de Exibição no App</label>
+            <input type="text" id="mStoreTitleInput" maxlength="150" />
+          </div>
+
+          <div class="m-field">
+            <label>Cor de Destaque do Estabelecimento</label>
+            <div class="m-swatches">
+              <button type="button" class="m-swatch active" data-color="#E6C229" style="background: #E6C229;" title="Ouro Destaque"></button>
+              <button type="button" class="m-swatch" data-color="#3E7B6B" style="background: #3E7B6B;" title="Verde Sálvia"></button>
+              <button type="button" class="m-swatch" data-color="#EF4565" style="background: #EF4565;" title="Vermelho Intenso"></button>
+              <button type="button" class="m-swatch" data-color="#0F0E17" style="background: #0F0E17;" title="Escuro Clássico"></button>
+            </div>
+          </div>
+
+          <div class="m-field">
+            <label>Canais de Venda Habilitados</label>
+            <div class="m-channels">
+              <label><input type="checkbox" value="BALCAO" checked /> Balcão</label>
+              <label><input type="checkbox" value="MESA" checked /> Mesa</label>
+              <label><input type="checkbox" value="DELIVERY" checked /> Delivery</label>
+            </div>
+          </div>
+
+          <div class="m-field">
+            <label for="mReceiptInput">Frase do Comprovante / QR</label>
+            <input type="text" id="mReceiptInput" maxlength="120" />
+          </div>
+        </div>
+
+        <button type="button" id="btnFinishSetup" class="btn-gold">
+          SALVAR CONFIGURAÇÕES
+        </button>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ÁREA RESTRITA (QUANDO O LOGIN NÃO É DO DONO / ADM)
+         ===================================================== -->
+    <section id="operatorWorkspace" class="mobile-scroll-body" style="display: none;">
+      <div class="m-card" style="text-align: center; padding: 22px 16px;">
+        <div style="font-size: 2rem; margin-bottom: 8px;">🔒</div>
+        <h3 class="m-card__title" id="opTitle">Acesso Operacional</h3>
+        <p id="opDesc" style="font-size: 0.8rem; color: var(--text-muted-shade); line-height: 1.5; margin-bottom: 16px;">
+          O gerenciamento de módulos e equipe é exclusivo do Proprietário (Admin Master).
+        </p>
+        <div id="opAllowedActions"
+          style="text-align: left; background: var(--surface-light-shade); padding: 12px; border-radius: 12px; font-size: 0.78rem; margin-bottom: 16px;">
+        </div>
+        <a href="login.html" class="btn-gold"
+          style="display: inline-grid; place-items: center; text-decoration: none;">
+          Trocar de Usuário
+        </a>
+      </div>
+    </section>
+
+    <div id="mToast" class="m-toast">Alterações salvas!</div>
+  </main>
+
+  <script>
+    const state = JSON.parse(localStorage.getItem('gf_tenant_setup'));
+    const session = JSON.parse(localStorage.getItem('gf_active_session'));
+
+    if (!state || !state.estabelecimento) {
+      window.location.href = 'login.html';
+    }
+
+    // Garante compatibilidade caso a loja tenha sido cadastrada antes do módulo pedidos_cozinha existir
+    if (typeof state.modulos.pedidos_cozinha === 'undefined') {
+      state.modulos.pedidos_cozinha = state.estabelecimento.segmento !== 'Trailer / Rua';
+    }
+
+    const currentUser = session || state.equipe[0];
+    const isManager = currentUser.grupo === 'ADMIN_MASTER' || currentUser.grupo === 'ADM';
+
+    function showToast(msg = 'Alterações salvas!') {
+      const t = document.getElementById('mToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function saveState(notify = false) {
+      localStorage.setItem('gf_tenant_setup', JSON.stringify(state));
+      localStorage.setItem('gf_modulos', JSON.stringify({
+        pedidos: state.modulos.pedidos_cozinha !== false,
+        fiado: state.modulos.fiado_recebimentos !== false,
+        fichaTecnica: state.modulos.ficha_tecnica !== false
+      }));
+      if (notify) showToast();
+    }
+
+    // Cabeçalho
+    const badgeEl = document.getElementById('ctrlSegmento');
+    document.getElementById('ctrlStoreName').textContent = state.estabelecimento.nome;
+    badgeEl.textContent = state.estabelecimento.segmento;
+    if (state.aparencia && state.aparencia.cor_destaque) {
+      badgeEl.style.background = state.aparencia.cor_destaque;
+      badgeEl.style.color = ['#3E7B6B', '#EF4565', '#0F0E17'].includes(state.aparencia.cor_destaque)
+        ? 'var(--surface-light)'
+        : 'var(--bg-dark)';
+    }
+    document.getElementById('ctrlOwnerLabel').textContent =
+      `${currentUser.nome} • ${currentUser.grupo_label || currentUser.grupo}`;
+
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', () => {
+        localStorage.removeItem('gf_active_session');
+      });
+    }
+
+    // Verifica permissão de acesso ao painel de gerenciamento
+    if (!isManager) {
+      document.getElementById('adminTabsNav').style.display = 'none';
+      document.getElementById('adminWorkspace').style.display = 'none';
+      document.getElementById('operatorWorkspace').style.display = 'block';
+
+      if (currentUser.grupo === 'GARCOM') {
+        document.getElementById('opTitle').textContent = 'Perfil: Garçom / Atendente';
+        document.getElementById('opAllowedActions').innerHTML = `
+          <strong>Telas liberadas para você:</strong><br><br>
+          ✅ Lançamento de Pedidos e Comandas<br>
+          ✅ Consulta de Cardápio<br>
+          🚫 Painel Administrativo e Dashboard bloqueados
+        `;
+      } else {
+        document.getElementById('opTitle').textContent = 'Perfil: Operador de Caixa';
+        document.getElementById('opAllowedActions').innerHTML = `
+          <strong>Telas liberadas para você:</strong><br><br>
+          ✅ Frente de Caixa e Sangria<br>
+          ✅ Recebimento de Fiado e Pacotes<br>
+          🚫 Configurações da Loja e Equipe bloqueadas
+        `;
+      }
+    } else {
+      // Abas do Dono / ADM
+      const tabs = document.querySelectorAll('.m-tab');
+      const panels = document.querySelectorAll('.m-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.target).classList.add('active');
+        });
+      });
+
+      // Cara do App
+      document.getElementById('mStoreTitleInput').value = state.estabelecimento.nome;
+      document.getElementById('mReceiptInput').value = state.aparencia.mensagem_recibo || '';
+
+      document.getElementById('mStoreTitleInput').addEventListener('input', (e) => {
+        state.estabelecimento.nome = e.target.value;
+        document.getElementById('ctrlStoreName').textContent = e.target.value;
+        saveState();
+      });
+
+      document.getElementById('mReceiptInput').addEventListener('input', (e) => {
+        state.aparencia.mensagem_recibo = e.target.value;
+        saveState();
+      });
+
+      document.querySelectorAll('.m-swatch').forEach(sw => {
+        if (sw.dataset.color === state.aparencia.cor_destaque) {
+          document.querySelectorAll('.m-swatch').forEach(s => s.classList.remove('active'));
+          sw.classList.add('active');
+        }
+        sw.addEventListener('click', () => {
+          document.querySelectorAll('.m-swatch').forEach(s => s.classList.remove('active'));
+          sw.classList.add('active');
+          state.aparencia.cor_destaque = sw.dataset.color;
+          badgeEl.style.background = sw.dataset.color;
+          badgeEl.style.color = ['#3E7B6B', '#EF4565', '#0F0E17'].includes(sw.dataset.color)
+            ? 'var(--surface-light)'
+            : 'var(--bg-dark)';
+          saveState(true);
+        });
+      });
+
+      // Módulos
+      document.querySelectorAll('.m-mod-chk').forEach(chk => {
+        const key = chk.dataset.mod;
+        chk.checked = Boolean(state.modulos[key]);
+        chk.addEventListener('change', () => {
+          state.modulos[key] = chk.checked;
+          saveState(true);
+        });
+      });
+
+      // Equipe & Cargos
+      const roleMeta = {
+        GARCOM: {
+          short: '4 • Garçom',
+          cls: 'tag-garcom',
+          hint: '✅ Lança pedidos e comandas<br>🚫 Sem acesso ao Dashboard ou Caixa'
+        },
+        CAIXA: {
+          short: '3 • Caixa',
+          cls: 'tag-caixa',
+          hint: '✅ Opera Caixa, Turno e Fiado<br>🚫 Sem acesso a Configurações da Loja'
+        },
+        ADM: {
+          short: '2 • Gerente',
+          cls: 'tag-adm',
+          hint: '✅ Estoque, Ficha Técnica, Relatórios e Vendas<br>🚫 Não altera Admin Master'
+        },
+        ADMIN_MASTER: {
+          short: '1 • Admin Master',
+          cls: 'tag-master',
+          hint: '✅ Controle total do estabelecimento, módulos e equipe'
+        }
+      };
+
+      const uGrupo = document.getElementById('uGrupo');
+      const uPermHint = document.getElementById('uPermHint');
+      uGrupo.addEventListener('change', () => {
+        uPermHint.innerHTML = roleMeta[uGrupo.value].hint;
+      });
+
+      function renderMobileTeam() {
+        const container = document.getElementById('mTeamList');
+        document.getElementById('tabTeamCount').textContent = state.equipe.length;
+
+        container.innerHTML = state.equipe.map(emp => {
+          const meta = roleMeta[emp.grupo] || roleMeta.GARCOM;
+          return `
+            <div class="m-emp-card">
+              <div>
+                <strong>${emp.nome}</strong>
+                <small>${emp.email}</small>
+              </div>
+              <div class="m-emp-card__right">
+                <span class="m-role-badge ${meta.cls}">${meta.short}</span>
+                ${emp.is_owner ? '' : `<button type="button" class="m-del-btn" onclick="delUser(${emp.id_usuario})">✕</button>`}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      window.delUser = function (id) {
+        state.equipe = state.equipe.filter(u => u.id_usuario !== id);
+        renderMobileTeam();
+        saveState(true);
+      };
+
+      document.getElementById('mAddUserForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nome = document.getElementById('uNome').value.trim();
+        const email = document.getElementById('uEmail').value.trim();
+        const senha = document.getElementById('uSenha').value;
+        const grupo = uGrupo.value;
+
+        if (!nome || !email || senha.length < 6) return;
+
+        state.equipe.push({
+          id_usuario: Date.now(),
+          nome,
+          email,
+          senha,
+          grupo,
+          grupo_label: roleMeta[grupo].short,
+          ativo: true,
+          is_owner: false
+        });
+
+        e.target.reset();
+        uPermHint.innerHTML = roleMeta[uGrupo.value].hint;
+        renderMobileTeam();
+        saveState(true);
+      });
+
+      document.getElementById('btnFinishSetup').addEventListener('click', () => {
+        saveState(true);
+      });
+
+      renderMobileTeam();
+    }
+  </script>
+</body>
+
+</html>

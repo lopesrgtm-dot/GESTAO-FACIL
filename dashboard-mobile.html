@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Dashboard</title>
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+</head>
+<body>
+
+  <main class="phone-frame" aria-label="Dashboard Financeiro e Operacional">
+    <!-- Cabeçalho Escuro (Tela Principal do App) -->
+    <header class="mobile-top-nav">
+      <div class="status-bar status-bar--dark">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="home-topbar">
+        <div class="home-brand">
+          <span class="home-brand__name">Gestão<strong>Fácil</strong></span>
+          <span class="badge-gold-pill" id="dashSegmentBadge">Hamburgueria</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <a href="controle-estabelecimento-mobile.html" id="btnHeaderControle" class="exit-pill" aria-label="Controle do App" title="Controle do App" style="display: inline-flex; align-items: center; gap: 4px; border-color: rgba(255,255,162,0.45); color: var(--accent-gold);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            <span>Controle</span>
+          </a>
+          <a href="login.html" id="btnDashLogout" class="exit-pill" aria-label="Sair da conta">Sair</a>
+        </div>
+      </div>
+
+      <div class="home-store-strip">
+        <div>
+          <p class="home-greeting" id="dashGreeting">Olá, Marcelo</p>
+          <h1 class="home-store-title" id="dashStoreTitle">Brasa Burger &amp; Co.</h1>
+        </div>
+        <span class="role-chip" id="dashRoleBadge">Admin Master</span>
+      </div>
+    </header>
+
+    <!-- Conteúdo Rolável do Dashboard -->
+    <section class="mobile-scroll-body dash-body">
+
+      <!-- Seletor de Período -->
+      <div class="dash-period-bar" role="tablist" aria-label="Filtro de período">
+        <button type="button" class="dash-period-btn active" data-period="hoje">Turno Hoje</button>
+        <button type="button" class="dash-period-btn" data-period="semana">Últimos 7 dias</button>
+      </div>
+
+      <!-- Card Destaque: Faturamento -->
+      <article class="dash-hero">
+        <div class="dash-hero__top">
+          <span class="dash-hero__label" id="dashRevenueLabel">Faturamento do Turno</span>
+          <span class="dash-trend-pill" id="dashTrendPill">▲ +14% vs ontem</span>
+        </div>
+        <strong class="dash-hero__value" id="dashTotalSales">R$ 339,00</strong>
+        <div class="dash-hero__meta">
+          <span id="dashOrdersCount">5 pedidos registrados</span>
+          <span>•</span>
+          <span id="dashAvgTicket">Ticket médio: R$ 67,80</span>
+        </div>
+      </article>
+
+      <!-- Mini KPIs: Caixa e Fila / Fiado -->
+      <div class="dash-kpi-grid">
+        <a href="caixa-mobile.html" class="dash-kpi-card">
+          <span class="dash-kpi-card__label">Saldo em Caixa</span>
+          <strong class="dash-kpi-card__val" id="dashCashBalance">R$ 439,00</strong>
+          <small class="dash-kpi-card__sub" id="dashCashSub">Inclui R$ 100,00 troco</small>
+        </a>
+
+        <a href="pedidos-mobile.html" id="dashSecondKpiCard" class="dash-kpi-card">
+          <span class="dash-kpi-card__label" id="dashSecondKpiLabel">Fila na Cozinha</span>
+          <strong class="dash-kpi-card__val" id="dashQueueCount">4 ativos</strong>
+          <small class="dash-kpi-card__sub" id="dashReadySub">2 prontos p/ entrega</small>
+        </a>
+      </div>
+
+      <!-- Mix de Formas de Pagamento -->
+      <article class="dash-card">
+        <div class="dash-card__head">
+          <h3>Recebimentos por Meio</h3>
+          <a href="caixa-mobile.html" class="dash-link">Conferir ›</a>
+        </div>
+
+        <div class="dash-stacked-bar" aria-label="Proporção de pagamentos">
+          <span class="dash-bar-seg dash-bar-seg--pix" id="barPix" style="width: 55%;"></span>
+          <span class="dash-bar-seg dash-bar-seg--card" id="barCard" style="width: 33%;"></span>
+          <span class="dash-bar-seg dash-bar-seg--cash" id="barCash" style="width: 12%;"></span>
+        </div>
+
+        <ul class="dash-legend-list">
+          <li>
+            <span class="dash-dot dash-dot--pix"></span>
+            <span class="dash-legend-name">Pix</span>
+            <strong id="valPix">R$ 185,00</strong>
+          </li>
+          <li>
+            <span class="dash-dot dash-dot--card"></span>
+            <span class="dash-legend-name">Cartão (Déb/Créd)</span>
+            <strong id="valCard">R$ 112,00</strong>
+          </li>
+          <li>
+            <span class="dash-dot dash-dot--cash"></span>
+            <span class="dash-legend-name">Dinheiro</span>
+            <strong id="valCash">R$ 42,00</strong>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Desempenho por Canal Ativo -->
+      <article class="dash-card">
+        <div class="dash-card__head">
+          <h3>Vendas por Canal</h3>
+          <small id="dashActiveChannelsTag">3 canais ativos</small>
+        </div>
+        <div id="dashChannelsContainer" class="dash-channels"></div>
+      </article>
+
+      <!-- Radar de Atenção Operacional (Estoque, Fiado e Controle) -->
+      <article class="dash-card">
+        <div class="dash-card__head">
+          <h3>Pontos de Atenção</h3>
+          <a href="fiado-mobile.html" id="dashFiadoQuickLink" class="dash-link">Ver Fiado ›</a>
+        </div>
+        <div id="dashAlertsContainer" class="dash-alerts"></div>
+      </article>
+
+    </section>
+
+    <!-- Barra de Navegação Inferior Unificada: Dashboard | Caixa | Pedido | Estoque -->
+    <nav class="bottom-nav" aria-label="Navegação Principal">
+      <a href="dashboard-mobile.html" class="bottom-nav__item active" aria-current="page">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="caixa-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20M6 15h4"/>
+        </svg>
+        <span>Caixa</span>
+      </a>
+      <a href="pedidos-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+        </svg>
+        <span>Pedido</span>
+      </a>
+      <a href="estoque-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <span>Estoque</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    let state = JSON.parse(localStorage.getItem('gf_tenant_setup'));
+    if (!state || !state.estabelecimento) {
+      state = {
+        estabelecimento: { id_estabelecimento: 1, nome: 'Brasa Burger & Co.', segmento: 'Hamburgueria' },
+        aparencia: { cor_destaque: '#FFFFA2', canais_venda: ['BALCAO', 'MESA', 'DELIVERY'] },
+        modulos: { pedidos_cozinha: true, ficha_tecnica: true, fiado_recebimentos: true },
+        equipe: [{ id_usuario: 1, nome: 'Marcelo Marques', email: 'lopes.rgtm@gmail.com', grupo: 'ADMIN_MASTER', is_owner: true }]
+      };
+      localStorage.setItem('gf_tenant_setup', JSON.stringify(state));
+    }
+
+    let appData = JSON.parse(localStorage.getItem('gf_app_data'));
+    if (!appData) {
+      appData = {
+        caixa: { aberto: true, fundo_troco: 100.00, pix: 185.00, cartao: 112.00, dinheiro: 42.00, sangrias: 0.00 },
+        pedidos: [
+          { id: 31, cliente: 'Mesa 04', canal: 'MESA', itens: '2x Smash Duplo, 1x Batata', total: 68.00, status: 'EM_PREPARO', hora: '11:18' },
+          { id: 32, cliente: 'Balcão • Ana', canal: 'BALCAO', itens: '1x Combo Brasa Bacon', total: 39.00, status: 'PRONTO', hora: '11:14' },
+          { id: 33, cliente: 'Delivery • Carlos', canal: 'DELIVERY', itens: '2x X-Salada, 2x Refri Lata', total: 54.00, status: 'EM_PREPARO', hora: '11:20' },
+          { id: 34, cliente: 'Mesa 02', canal: 'MESA', itens: '1x Porção Onion Rings', total: 24.00, status: 'PRONTO', hora: '11:10' },
+          { id: 30, cliente: 'Balcão • João', canal: 'BALCAO', itens: '1x X-Burger Clássico', total: 26.00, status: 'ENTREGUE', hora: '10:55' }
+        ],
+        estoque: [
+          { id: 1, nome: 'Pão Brioche Selado', unidade: 'un', atual: 14, minimo: 30, categoria: 'Insumo' },
+          { id: 2, nome: 'Blend Bovino 180g', unidade: 'un', atual: 9, minimo: 25, categoria: 'Insumo' },
+          { id: 3, nome: 'Refrigerante Lata 350ml', unidade: 'un', atual: 8, minimo: 24, categoria: 'Bebida' },
+          { id: 4, nome: 'Queijo Cheddar Fatiado', unidade: 'kg', atual: 4.5, minimo: 2.0, categoria: 'Insumo' },
+          { id: 5, nome: 'Batata Palito Congelada', unidade: 'kg', atual: 12.0, minimo: 5.0, categoria: 'Insumo' }
+        ],
+        fiado: [
+          { id: 1, cliente: 'Rafael Oliveira', telefone: '(13) 99711-2233', limite: 200.00, saldo_devedor: 85.00, vencimento: 'Hoje' },
+          { id: 2, cliente: 'Camila Santos', telefone: '(13) 99644-8810', limite: 150.00, saldo_devedor: 65.00, vencimento: '22/11' },
+          { id: 3, cliente: 'Oficina do Beto', telefone: '(13) 99800-1122', limite: 300.00, saldo_devedor: 0.00, vencimento: 'Em dia' }
+        ]
+      };
+      localStorage.setItem('gf_app_data', JSON.stringify(appData));
+    }
+
+    const pedidosSalvos = JSON.parse(localStorage.getItem('gf_pedidos'));
+    const listaPedidos = pedidosSalvos || appData.pedidos || [];
+    const session = JSON.parse(localStorage.getItem('gf_active_session')) || state.equipe[0];
+
+    if (session && session.grupo === 'GARCOM') {
+      window.location.replace('pedidos-mobile.html');
+    }
+
+    const isManager = session.grupo === 'ADMIN_MASTER' || session.grupo === 'ADM';
+    if (!isManager) {
+      document.getElementById('btnHeaderControle').style.display = 'none';
+    }
+
+    const fmtBRL = (v) => Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    const accent = (state.aparencia && state.aparencia.cor_destaque) || '#FFFFA2';
+    const segBadge = document.getElementById('dashSegmentBadge');
+    document.getElementById('dashStoreTitle').textContent = state.estabelecimento.nome;
+    segBadge.textContent = state.estabelecimento.segmento;
+    segBadge.style.background = accent;
+    if (['#3E7B6B', '#EF4565', '#0F0E17'].includes(accent)) {
+      segBadge.style.color = 'var(--surface-light)';
+      segBadge.style.borderColor = accent;
+    }
+
+    const firstName = (session.nome || 'Proprietário').split(' ')[0];
+    document.getElementById('dashGreeting').textContent = `Olá, ${firstName}`;
+
+    const roleNames = { ADMIN_MASTER: 'Admin Master', ADM: 'Administrador', CAIXA: 'Operador Caixa' };
+    document.getElementById('dashRoleBadge').textContent = roleNames[session.grupo] || session.grupo;
+
+    const pedidosAtivo = state.modulos && state.modulos.pedidos_cozinha !== false;
+    const fiadoAtivo = state.modulos && state.modulos.fiado_recebimentos !== false;
+    if (!fiadoAtivo) {
+      document.getElementById('dashFiadoQuickLink').style.display = 'none';
+    }
+
+    function renderDashboard(period) {
+      const mult = period === 'semana' ? 6.4 : 1;
+      const pix = appData.caixa.pix * mult;
+      const cartao = appData.caixa.cartao * mult;
+      const dinheiro = appData.caixa.dinheiro * mult;
+      const totalVendas = pix + cartao + dinheiro;
+
+      const totalPedidos = Math.max(1, Math.round((listaPedidos.length || 5) * mult));
+      const ticketMedio = totalVendas / totalPedidos;
+
+      document.getElementById('dashRevenueLabel').textContent = period === 'semana' ? 'Faturamento (7 dias)' : 'Faturamento do Turno';
+      document.getElementById('dashTrendPill').textContent = period === 'semana' ? '▲ +21% vs sem. ant.' : '▲ +14% vs ontem';
+      document.getElementById('dashTotalSales').textContent = fmtBRL(totalVendas);
+      document.getElementById('dashOrdersCount').textContent = pedidosAtivo
+        ? `${totalPedidos} pedidos registrados`
+        : `${totalPedidos} vendas registradas`;
+      document.getElementById('dashAvgTicket').textContent = `Ticket médio: ${fmtBRL(ticketMedio)}`;
+
+      const saldoGaveta = appData.caixa.fundo_troco + totalVendas - (appData.caixa.sangrias || 0);
+      document.getElementById('dashCashBalance').textContent = fmtBRL(saldoGaveta);
+      document.getElementById('dashCashSub').textContent = `Inclui ${fmtBRL(appData.caixa.fundo_troco)} troco`;
+
+      const secondCard = document.getElementById('dashSecondKpiCard');
+      if (pedidosAtivo) {
+        const ativos = listaPedidos.filter(p => p.status !== 'entregue' && p.status !== 'ENTREGUE').length;
+        const prontos = listaPedidos.filter(p => p.status === 'pronto' || p.status === 'PRONTO').length;
+        secondCard.href = 'pedidos-mobile.html';
+        document.getElementById('dashSecondKpiLabel').textContent = 'Fila na Cozinha';
+        document.getElementById('dashQueueCount').textContent = `${ativos} ativos`;
+        document.getElementById('dashReadySub').textContent = `${prontos} prontos p/ entrega`;
+      } else {
+        const totalFiado = (appData.fiado || []).reduce((acc, f) => acc + f.saldo_devedor, 0);
+        const devedores = (appData.fiado || []).filter(f => f.saldo_devedor > 0).length;
+        secondCard.href = 'fiado-mobile.html';
+        document.getElementById('dashSecondKpiLabel').textContent = 'Fiado a Receber';
+        document.getElementById('dashQueueCount').textContent = fmtBRL(totalFiado);
+        document.getElementById('dashReadySub').textContent = `${devedores} clientes pendentes`;
+      }
+
+      const safeTotal = totalVendas > 0 ? totalVendas : 1;
+      document.getElementById('barPix').style.width = `${Math.round((pix / safeTotal) * 100)}%`;
+      document.getElementById('barCard').style.width = `${Math.round((cartao / safeTotal) * 100)}%`;
+      document.getElementById('barCash').style.width = `${Math.round((dinheiro / safeTotal) * 100)}%`;
+
+      document.getElementById('valPix').textContent = fmtBRL(pix);
+      document.getElementById('valCard').textContent = fmtBRL(cartao);
+      document.getElementById('valCash').textContent = fmtBRL(dinheiro);
+
+      const canaisAtivos = (state.aparencia && state.aparencia.canais_venda) || ['BALCAO', 'MESA', 'DELIVERY'];
+      document.getElementById('dashActiveChannelsTag').textContent =
+        canaisAtivos.length === 1 ? '1 canal ativo' : `${canaisAtivos.length} canais ativos`;
+
+      const channelLabels = { BALCAO: 'Balcão / Retirada', MESA: 'Mesas / Comanda', DELIVERY: 'Delivery / Entrega' };
+      const channelContainer = document.getElementById('dashChannelsContainer');
+      channelContainer.innerHTML = '';
+
+      canaisAtivos.forEach(canal => {
+        const somaCanal = listaPedidos
+          .filter(p => (p.canal || '').toUpperCase() === canal)
+          .reduce((acc, p) => acc + Number(p.total || 0), 0) * mult;
+        const pct = Math.min(100, Math.round((somaCanal / safeTotal) * 100)) || 15;
+
+        const row = document.createElement('div');
+        row.className = 'dash-channel-row';
+        row.innerHTML = `
+          <div class="dash-channel-row__top">
+            <span>${channelLabels[canal] || canal}</span>
+            <strong>${fmtBRL(somaCanal)}</strong>
+          </div>
+          <div class="dash-progress">
+            <div class="dash-progress__fill" style="width: ${pct}%;"></div>
+          </div>
+        `;
+        channelContainer.appendChild(row);
+      });
+    }
+
+    const alertsContainer = document.getElementById('dashAlertsContainer');
+    const criticos = (appData.estoque || []).filter(e => e.atual <= e.minimo);
+    if (criticos.length > 0) {
+      alertsContainer.innerHTML += `
+        <a href="estoque-mobile.html" class="dash-alert-item dash-alert-item--red">
+          <div>
+            <strong>${criticos.length} itens abaixo do mínimo</strong>
+            <small>${criticos.map(c => c.nome).slice(0, 2).join(', ')}</small>
+          </div>
+          <span>Repor ›</span>
+        </a>
+      `;
+    }
+
+    if (fiadoAtivo) {
+      const devedores = (appData.fiado || []).filter(f => f.saldo_devedor > 0);
+      const totalFiado = devedores.reduce((acc, f) => acc + f.saldo_devedor, 0);
+      if (totalFiado > 0) {
+        alertsContainer.innerHTML += `
+          <a href="fiado-mobile.html" class="dash-alert-item dash-alert-item--gold">
+            <div>
+              <strong>${fmtBRL(totalFiado)} em fiado aberto</strong>
+              <small>${devedores.length} clientes com saldo pendente</small>
+            </div>
+            <span>Cobrar ›</span>
+          </a>
+        `;
+      }
+    }
+
+    if (!alertsContainer.innerHTML.trim()) {
+      alertsContainer.innerHTML = `<p style="font-size:0.78rem; color: var(--text-muted-shade);">Nenhuma pendência crítica no momento.</p>`;
+    }
+
+    document.querySelectorAll('.dash-period-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.dash-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderDashboard(btn.dataset.period);
+      });
+    });
+
+    document.getElementById('btnDashLogout').addEventListener('click', () => {
+      localStorage.removeItem('gf_active_session');
+    });
+
+    renderDashboard('hoje');
+  </script>
+</body>
+</html>

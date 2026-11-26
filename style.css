@@ -1,0 +1,631 @@
+/* ==========================================================================
+1. IMPORTAÇÃO DE FONTES (GOOGLE FONTS: INTER + PLUS JAKARTA SANS)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+
+/* ==========================================================================
+2. VARIÁVEIS GLOBAIS (PALETA E TIPOGRAFIA OFICIAL GESTÃOFÁCIL)
+   ========================================================================== */
+:root {
+  /* 6 Cores Principais — GestãoFácil */
+  --bg-dark: #0F0E17;
+  --accent-gold: #FFFFA2;
+  --support-sage: #ABD1C6;
+  --surface-light: #FFFFFE;
+  --text-muted: #A7A9BE;
+  --danger-red: #EF4565;
+
+  /* 6 Tonalidades Dark (Shades) */
+  --bg-dark-shade: #07060C;
+  --accent-gold-shade: #E6C229;
+  --support-sage-shade: #3E7B6B;
+  --surface-light-shade: #F3F4F8;
+  --text-muted-shade: #5E6073;
+  --danger-red-shade: #BE2946;
+
+  /* Tipografia */
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ==========================================================================
+3. RESET E CONFIGURAÇÕES BASE
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+}
+
+body {
+  background-color: var(--text-muted);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px 12px;
+}
+
+/* ==========================================================================
+4. ESTRUTURA DO DISPOSITIVO (EXPANSÍVEL PARA CAPTURA COMPLETA)
+   ========================================================================== */
+.phone-frame {
+  width: 375px;
+  min-height: 812px;
+  height: auto;
+  background-color: var(--accent-gold);
+  border-radius: 40px;
+  border: 6px solid var(--bg-dark);
+  box-shadow: 0 24px 48px rgba(15, 14, 23, 0.45);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  position: relative;
+}
+
+.phone-frame--splash {
+  height: 812px;
+  background-color: var(--accent-gold);
+  justify-content: space-between;
+  padding: 20px 28px 40px 28px;
+}
+
+/* ==========================================================================
+5. BARRA DE STATUS SUPERIOR (.status-bar)
+   ========================================================================== */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--surface-light);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-bar--light {
+  color: var(--bg-dark);
+}
+
+.status-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(171, 209, 198, 0.14);
+  color: var(--support-sage);
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--support-sage);
+}
+
+/* ==========================================================================
+6. ESTILOS EXCLUSIVOS DA SPLASH SCREEN (.splash-*)
+   ========================================================================== */
+.splash-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  animation: fadeUp 0.7s ease-out forwards;
+}
+
+.splash-center__logo {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 6px rgba(15, 14, 23, 0.36)) drop-shadow(0 16px 26px rgba(15, 14, 23, 0.24));
+  transform: translateZ(0);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.splash-center__slogan {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--bg-dark);
+  max-width: 250px;
+  line-height: 1.45;
+  margin-top: 12px;
+}
+
+.splash-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.progress-track {
+  width: 160px;
+  height: 5px;
+  background-color: rgba(15, 14, 23, 0.16);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--bg-dark);
+  border-radius: 99px;
+  animation: loadBar 2.2s ease-in-out forwards;
+}
+
+.sync-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--bg-dark);
+  font-weight: 600;
+}
+
+.sync-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--bg-dark);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loadBar {
+  0% { width: 0%; }
+  55% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* ==========================================================================
+7. CABEÇALHO E ÁREA DO BANNER NO LOGIN (.top-banner)
+   ========================================================================== */
+.top-banner {
+  background-color: var(--accent-gold);
+  padding: 18px 24px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.top-banner .status-bar {
+  color: var(--bg-dark);
+}
+
+.top-banner .status-badge {
+  background-color: rgba(15, 14, 23, 0.12);
+  color: var(--bg-dark);
+}
+
+.top-banner .status-badge__dot {
+  background-color: var(--bg-dark);
+}
+
+.banner-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.banner-logo-pill {
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-logo-pill__img {
+  width: 115px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 8px 16px rgba(15, 14, 23, 0.14));
+}
+
+.banner-brand__subtitle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bg-dark);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+8. CORPO PRINCIPAL: CARD DO FORMULÁRIO (.login-card)
+   ========================================================================== */
+.login-card {
+  flex: 1;
+  background-color: var(--surface-light);
+  border-radius: 30px 30px 34px 34px;
+  padding: 30px 26px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-header {
+  margin-bottom: 20px;
+}
+
+.login-header__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--bg-dark);
+  letter-spacing: -0.4px;
+}
+
+.login-header__desc {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+9. CAMPOS DE ENTRADA E MENSAGENS DE VALIDAÇÃO (.input-field)
+   ========================================================================== */
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.register-form {
+  gap: 11px;
+}
+
+.input-field {
+  display: flex;
+  align-items: center;
+  background-color: var(--surface-light);
+  border: 1.5px solid rgba(167, 169, 190, 0.45);
+  border-radius: 14px;
+  padding: 0 14px;
+  height: 50px;
+  transition: border-color 0.2s ease;
+}
+
+.input-field--compact {
+  height: 45px;
+}
+
+.input-field:focus-within {
+  border-color: var(--accent-gold);
+}
+
+.input-field__icon {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+.input-field input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 12px;
+  font-size: 14px;
+  color: var(--bg-dark);
+}
+
+.input-field input::placeholder {
+  color: var(--text-muted);
+}
+
+.input-field__toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.input-field__toggle svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--bg-dark);
+  fill: none;
+  stroke-width: 2;
+}
+
+.form-error {
+  display: none;
+  font-size: 12px;
+  color: var(--danger-red);
+  font-weight: 600;
+  margin-top: -4px;
+}
+
+.form-success {
+  display: none;
+  font-size: 12px;
+  color: var(--bg-dark);
+  background-color: rgba(171, 209, 198, 0.45);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.forgot-password {
+  align-self: flex-end;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--bg-dark);
+  text-decoration: none;
+  margin-top: -4px;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+10. BOTÕES DE AÇÃO E DIVISOR (.form-actions)
+   ========================================================================== */
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 50px;
+  background-color: var(--accent-gold);
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 14px;
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(235, 195, 16, 0.32);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.96);
+}
+
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin: 2px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(167, 169, 190, 0.35);
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+.btn-google {
+  width: 100%;
+  height: 50px;
+  background-color: var(--surface-light);
+  color: var(--bg-dark);
+  border: 1.5px solid rgba(167, 169, 190, 0.45);
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-google:hover {
+  background-color: rgba(171, 209, 198, 0.15);
+}
+
+/* ==========================================================================
+11. RODAPÉ DE CADASTRO (.login-footer)
+   ========================================================================== */
+.login-footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 14px;
+}
+
+.link-trigger {
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--accent-gold);
+  color: var(--bg-dark);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding-bottom: 1px;
+}
+
+/* ==========================================================================
+12. POP-UP / MODAL DE CADASTRO (.modal-overlay & .modal-sheet)
+   ========================================================================== */
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(15, 14, 23, 0.72);
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 20;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-sheet {
+  width: 100%;
+  background-color: var(--surface-light);
+  border-radius: 28px 28px 34px 34px;
+  padding: 14px 24px 26px 24px;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 -10px 30px rgba(15, 14, 23, 0.3);
+}
+
+.modal-overlay.is-open .modal-sheet {
+  transform: translateY(0);
+}
+
+.modal-sheet__top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.modal-sheet__handle {
+  width: 40px;
+  height: 4px;
+  background-color: rgba(167, 169, 190, 0.5);
+  border-radius: 99px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(167, 169, 190, 0.2);
+  color: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.modal-close-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--bg-dark);
+  fill: none;
+  stroke-width: 2.2;
+}
+
+.modal-header {
+  margin-bottom: 14px;
+}
+
+.modal-header__title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--bg-dark);
+}
+
+.modal-header__desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.segment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bg-dark);
+}
+
+.segment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.segment-option {
+  background-color: var(--surface-light);
+  border: 1.5px solid rgba(167, 169, 190, 0.45);
+  border-radius: 12px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.segment-option svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.segment-option.active {
+  background-color: rgba(235, 195, 16, 0.18);
+  border-color: var(--accent-gold);
+  color: var(--bg-dark);
+}

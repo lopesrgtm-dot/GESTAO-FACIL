@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Login Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+</head>
+<body>
+
+  <main class="phone-frame" aria-label="Tela de Login GestãoFácil">
+    <!-- Barra de Status & Cabeçalho Amarelo -->
+    <header class="mobile-hero-header">
+      <div class="status-bar">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn" id="connBadge">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="brand-lockup">
+        <span class="brand-lockup__title">Gestão<strong>Fácil</strong></span>
+      </div>
+      <p class="mobile-hero-header__tagline">Suas vendas, caixa e estoque em um só lugar</p>
+    </header>
+
+    <!-- Corpo Branco Arredondado -->
+    <section class="mobile-sheet mobile-sheet--login">
+      <div class="sheet-heading">
+        <h1>Bem-vindo</h1>
+        <p>Faça login para acessar o seu caixa</p>
+      </div>
+
+      <form id="loginForm" class="auth-form" novalidate>
+        <div class="input-box">
+          <svg class="input-box__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="3" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          <input type="email" id="loginEmail" placeholder="Digite seu e-mail" autocomplete="email" required />
+        </div>
+
+        <div class="input-box">
+          <svg class="input-box__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <input type="password" id="loginPassword" placeholder="Digite sua senha" autocomplete="current-password" required />
+          <button type="button" id="toggleLoginPass" class="input-box__eye" aria-label="Mostrar senha">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </button>
+        </div>
+
+        <p id="loginError" class="inline-error">Preencha seu e-mail e senha para continuar.</p>
+
+        <div class="forgot-row">
+          <a href="#recuperar" id="forgotLink">Esqueceu a senha?</a>
+        </div>
+
+        <button type="submit" class="btn-gold">ENTRAR NO SISTEMA</button>
+      </form>
+
+      <footer class="login-bottom-link">
+        Ainda não tem conta? <a href="cadastro-estabelecimento-mobile.html">Cadastre seu negócio</a>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // Garante que a tela permaneça no login até o usuário enviar o formulário
+    const loginPass = document.getElementById('loginPassword');
+    document.getElementById('toggleLoginPass').addEventListener('click', () => {
+      loginPass.type = loginPass.type === 'password' ? 'text' : 'password';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass = loginPass.value;
+      const err = document.getElementById('loginError');
+
+      if (!email.includes('@') || pass.length < 4) {
+        err.textContent = 'Preencha seu e-mail e senha para continuar.';
+        err.style.display = 'block';
+        return;
+      }
+
+      const savedSetup = JSON.parse(localStorage.getItem('gf_tenant_setup'));
+      if (!savedSetup || !Array.isArray(savedSetup.equipe)) {
+        err.textContent = 'Nenhum estabelecimento cadastrado ainda. Clique em "Cadastre seu negócio" abaixo.';
+        err.style.display = 'block';
+        return;
+      }
+
+      const matchedUser = savedSetup.equipe.find(u => u.email.toLowerCase() === email);
+      if (!matchedUser) {
+        err.textContent = 'E-mail não encontrado neste estabelecimento.';
+        err.style.display = 'block';
+        return;
+      }
+
+      if (matchedUser.senha && matchedUser.senha !== pass) {
+        err.textContent = 'Senha incorreta. Verifique e tente novamente.';
+        err.style.display = 'block';
+        return;
+      }
+
+      err.style.display = 'none';
+
+      // Salva a sessão ativa do usuário autenticado
+      localStorage.setItem('gf_active_session', JSON.stringify({
+        id_usuario: matchedUser.id_usuario,
+        nome: matchedUser.nome,
+        email: matchedUser.email,
+        grupo: matchedUser.grupo,
+        grupo_label: matchedUser.grupo_label,
+        is_owner: Boolean(matchedUser.is_owner)
+      }));
+
+      // Direciona sempre para a Tela Inicial (Hub de Rotas)
+      window.location.href = 'inicio-mobile.html';
+    });
+  </script>
+</body>
+</html>

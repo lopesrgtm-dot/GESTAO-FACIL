@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Controle de Fiado & WhatsApp</title>
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+  <style>
+    .fia-summary-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .fia-stat-card {
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .fia-stat-card small {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted-shade);
+      margin-bottom: 4px;
+    }
+
+    .fia-stat-card strong {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--bg-dark);
+    }
+
+    .fia-wa-box {
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 13px 14px;
+      margin-bottom: 12px;
+    }
+
+    .fia-wa-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .fia-wa-head strong {
+      font-size: 0.86rem;
+      color: var(--bg-dark);
+    }
+
+    .fia-wa-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--bg-dark);
+      cursor: pointer;
+    }
+
+    .fia-wa-toggle input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--bg-dark);
+    }
+
+    .fia-wa-preview {
+      background: var(--surface-light-shade);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 9px 10px;
+      font-size: 0.74rem;
+      color: var(--bg-dark);
+      line-height: 1.4;
+      margin-top: 8px;
+    }
+
+    .fia-client-card {
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-gold-shade);
+      border-radius: 15px;
+      padding: 12px 13px;
+      margin-bottom: 10px;
+    }
+
+    .fia-client-card__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .fia-client-card__top strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--bg-dark);
+    }
+
+    .fia-client-card__top small {
+      font-size: 0.7rem;
+      color: var(--text-muted-shade);
+    }
+
+    .fia-client-valor {
+      font-family: var(--font-display);
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--danger-red-shade);
+      white-space: nowrap;
+    }
+
+    .fia-client-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .fia-btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1.5px solid var(--bg-dark);
+      background: var(--support-sage);
+      color: var(--bg-dark);
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .fia-btn-pay {
+      height: 36px;
+      border-radius: 10px;
+      border: 1.5px solid var(--accent-gold-shade);
+      background: var(--accent-gold);
+      color: var(--bg-dark);
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main class="phone-frame" aria-label="Controle de Fiado e WhatsApp">
+    <header class="mobile-top-nav">
+      <div class="status-bar status-bar--dark">
+        <span>9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span>100%</span>
+        </div>
+      </div>
+
+      <div class="nav-title-row">
+        <a href="dashboard-mobile.html" class="back-btn" aria-label="Voltar ao Dashboard">←</a>
+        <div>
+          <span class="nav-eyebrow">COBRANÇA & CRÉDITO</span>
+          <h2>Controle de Fiado</h2>
+        </div>
+      </div>
+    </header>
+
+    <section class="mobile-scroll-body" id="fiadoBody">
+      <div class="op-summary-banner">
+        <small style="display:block;font-size:0.7rem;font-weight:700;opacity:0.85;">TOTAL EM ABERTO</small>
+        <strong id="fiaTotalAberto" style="font-family:var(--font-display);font-size:1.55rem;font-weight:800;display:block;margin:2px 0;">R$ 150,00</strong>
+        <span style="font-size:0.74rem;font-weight:600;">2 clientes pendentes • Lembretes automáticos via WhatsApp</span>
+      </div>
+
+      <div class="fia-summary-row">
+        <div class="fia-stat-card">
+          <small>Clientes devedores</small>
+          <strong id="fiaQtdClientes">2 ativos</strong>
+        </div>
+        <div class="fia-stat-card">
+          <small>Envio automático</small>
+          <strong id="fiaAutoStatus">Ativo (18h)</strong>
+        </div>
+      </div>
+
+      <div class="fia-wa-box">
+        <div class="fia-wa-head">
+          <strong>Integração WhatsApp Automático</strong>
+          <label class="fia-wa-toggle">
+            <input type="checkbox" id="fiaAutoToggle" checked />
+            <span>Auto-cobrar</span>
+          </label>
+        </div>
+
+        <div class="m-field">
+          <label for="fiaModeloMsg">Modelo de mensagem</label>
+          <select id="fiaModeloMsg">
+            <option value="lembrete">Lembrete amigável do dia</option>
+            <option value="cobranca">Aviso de saldo em aberto + Pix</option>
+          </select>
+        </div>
+
+        <div class="fia-wa-preview" id="fiaMsgPreview"></div>
+      </div>
+
+      <div class="m-card">
+        <h3 class="m-card__title">Novo Fiado Rápido</h3>
+        <form id="fiaNovoForm">
+          <div class="m-field-2col">
+            <div class="m-field">
+              <label for="fiaNome">Cliente</label>
+              <input type="text" id="fiaNome" placeholder="Ex: Lucas" required />
+            </div>
+            <div class="m-field">
+              <label for="fiaFone">WhatsApp (DDD + nº)</label>
+              <input type="text" id="fiaFone" placeholder="13999990000" required />
+            </div>
+          </div>
+          <div class="m-field">
+            <label for="fiaValor">Valor (R$)</label>
+            <input type="number" step="0.01" min="0.50" id="fiaValor" placeholder="28.00" required />
+          </div>
+          <button type="submit" class="btn-gold btn-gold--sm">LANÇAR NO FIADO</button>
+        </form>
+      </div>
+
+      <div id="fiaListaClientes"></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Navegação inferior">
+      <a href="dashboard-mobile.html" class="bottom-nav__item">
+        <span>Dashboard</span>
+      </a>
+      <a href="caixa-mobile.html" class="bottom-nav__item active">
+        <span>Caixa</span>
+      </a>
+      <a href="pedidos-mobile.html" class="bottom-nav__item">
+        <span>Pedido</span>
+      </a>
+      <a href="estoque-mobile.html" class="bottom-nav__item">
+        <span>Estoque</span>
+      </a>
+    </nav>
+
+    <div class="m-toast" id="fiaToast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const clientesFiado = [
+      { id: 1, nome: 'Carlos Henrique', fone: '5513991112233', valor: 86.00, ref: '2 burgers + refri (Ontem)' },
+      { id: 2, nome: 'Patrícia Souza', fone: '5513994445566', valor: 64.00, ref: 'Combo + porção (Há 3 dias)' }
+    ];
+
+    const toastEl = document.getElementById('fiaToast');
+    const listaEl = document.getElementById('fiaListaClientes');
+    const totalEl = document.getElementById('fiaTotalAberto');
+    const qtdEl = document.getElementById('fiaQtdClientes');
+    const autoToggle = document.getElementById('fiaAutoToggle');
+    const autoStatus = document.getElementById('fiaAutoStatus');
+    const modeloSelect = document.getElementById('fiaModeloMsg');
+    const previewEl = document.getElementById('fiaMsgPreview');
+
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      setTimeout(() => toastEl.classList.remove('show'), 2200);
+    }
+
+    function formatBRL(v) {
+      return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function montarMensagem(cliente) {
+      if (modeloSelect.value === 'cobranca') {
+        return `Olá ${cliente.nome}! Passando para lembrar do seu saldo em aberto no GestãoFácil no valor de ${formatBRL(cliente.valor)} (${cliente.ref}). Se preferir, já podemos acertar via Pix.`;
+      }
+      return `Oi ${cliente.nome}, tudo bem? Passando para lembrar do seu fiado de ${formatBRL(cliente.valor)} (${cliente.ref}). Qualquer dúvida estamos à disposição!`;
+    }
+
+    function atualizarPreview() {
+      const exemplo = clientesFiado[0] || { nome: 'Cliente', valor: 45.0, ref: 'Pedido do dia' };
+      previewEl.textContent = `Prévia WhatsApp: "${montarMensagem(exemplo)}"`;
+      autoStatus.textContent = autoToggle.checked ? 'Ativo (18h)' : 'Pausado';
+    }
+
+    function renderFiado() {
+      const total = clientesFiado.reduce((acc, c) => acc + c.valor, 0);
+      totalEl.textContent = formatBRL(total);
+      qtdEl.textContent = `${clientesFiado.length} ${clientesFiado.length === 1 ? 'ativo' : 'ativos'}`;
+
+      if (!clientesFiado.length) {
+        listaEl.innerHTML = '<div class="m-card"><p class="est-empty">Nenhum cliente com fiado em aberto.</p></div>';
+        atualizarPreview();
+        return;
+      }
+
+      listaEl.innerHTML = clientesFiado.map((c) => {
+        const textoEncoded = encodeURIComponent(montarMensagem(c));
+        const waLink = `https://wa.me/${c.fone}?text=${textoEncoded}`;
+        return `
+          <div class="fia-client-card">
+            <div class="fia-client-card__top">
+              <div>
+                <strong>${c.nome}</strong>
+                <small>${c.ref} • +${c.fone}</small>
+              </div>
+              <span class="fia-client-valor">${formatBRL(c.valor)}</span>
+            </div>
+            <div class="fia-client-actions">
+              <a href="${waLink}" target="_blank" rel="noopener" class="fia-btn-wa" onclick="showToast('Mensagem WhatsApp gerada para ${c.nome}')">
+                WhatsApp
+              </a>
+              <button type="button" class="fia-btn-pay" onclick="quitarCliente(${c.id})">
+                Receber Pagamento
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      atualizarPreview();
+    }
+
+    window.quitarCliente = function (id) {
+      const idx = clientesFiado.findIndex((c) => c.id === id);
+      if (idx > -1) {
+        const nome = clientesFiado[idx].nome;
+        clientesFiado.splice(idx, 1);
+        renderFiado();
+        showToast(`Fiado de ${nome} recebido!`);
+      }
+    };
+
+    document.getElementById('fiaNovoForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('fiaNome').value.trim();
+      const foneLimpo = document.getElementById('fiaFone').value.replace(/\D/g, '');
+      const valor = parseFloat(document.getElementById('fiaValor').value);
+      if (!nome || !foneLimpo || isNaN(valor) || valor <= 0) return;
+
+      const foneIntl = foneLimpo.startsWith('55') ? foneLimpo : `55${foneLimpo}`;
+      clientesFiado.unshift({
+        id: Date.now(),
+        nome,
+        fone: foneIntl,
+        valor,
+        ref: 'Lançado agora'
+      });
+      e.target.reset();
+      renderFiado();
+      showToast(`${nome} adicionado ao fiado!`);
+    });
+
+    autoToggle.addEventListener('change', () => {
+      atualizarPreview();
+      showToast(autoToggle.checked ? 'Envio automático WhatsApp ativado' : 'Envio automático pausado');
+    });
+
+    modeloSelect.addEventListener('change', renderFiado);
+
+    renderFiado();
+  </script>
+</body>
+</html>

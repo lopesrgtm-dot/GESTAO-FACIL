@@ -1,0 +1,75 @@
+
+
+:root {
+  --bg-main: #111827;       /* Cinza Noite */
+  --bg-card: #1F2937;       /* Cinza Escuro para painéis e cartões */
+  --text-primary: #F9FAFB;  /* Branco suavizado */
+  --text-secondary: #9CA3AF;/* Cinza claro para textos de apoio */
+  --color-primary: #D97706; /* Âmbar / Laranja fechado (Ações principais) */
+  --color-accent: #10B981;  /* Verde Esmeralda (Status de caixa, PIX, Online) */
+  --color-danger: #EF4444;  /* Vermelho alerta (Cancelamentos, Sangria) */
+  --color-border: #374151;  /* Bordas sutis de inputs e divisores */
+--color-border: #ebc310;  /* COR FAVORITA*/
+}
+
+
+:root {
+  --bg-dark: #0F0E17;       /* Fundo principal Dark, cabeçalhos, textos sobre botões amarelos e ícones */
+  --accent-gold: #EBC310;   /* Botões principais (Entrar, Finalizar Venda), logo, alertas de estoque baixo e sync pendente */
+  --support-sage: #ABD1C6;  /* Status Online, estoque saudável, entradas de caixa e barras de progresso */
+  --surface-light: #FFFFFE; /* Cards de formulário, telas claras e textos sobre fundo escuro */
+  --text-muted: #A7A9BE;    /* Subtítulos, placeholders de inputs, ícones inativos e divisórias */
+  --danger-red: #EF4565;    /* Erros de login, saídas/despesas no caixa, botão Cancelar/Excluir e estoque zerado */
+}
+
+
+
+
+root {
+  /* ---------------------------------------------------- */
+  /* 60% BASE NEUTRA (Leitura limpa e redução de fadiga)  */
+  /* ---------------------------------------------------- */
+  
+  /* Fundo principal do app (Off-white suave) */
+  --bg-page: #FFFFFE; 
+  
+  /* Fundo de cards, modais e inputs (Branco puro para destacar do fundo) */
+  --bg-card: #FFFFFF; 
+  
+  /* Bordas sutis para separar elementos sem pesar o layout */
+  --border-color: #EAE8E8; 
+
+  /* ---------------------------------------------------- */
+  /* 30% ESTRUTURA & CONTRASTE (Peso, foco e tipografia) */
+  /* ---------------------------------------------------- */
+  
+  /* Fundo escuro profundo para Cabeçalhos, Sidebar e Navbars */
+  --bg-dark: #0F0E17; 
+  
+  /* Cor principal do texto (Preto profundo para legibilidade máxima) */
+  --text-primary: #0F0E17; 
+  
+  /* Textos secundários (Cinza quente para labels, dicas e dados menos focados) */
+  --text-secondary: #A7A9BE; 
+  
+  /* Texto sobre fundos escuros ou botões de ação */
+  --text-on-dark: #FFFFFE;
+
+  /* ---------------------------------------------------- */
+  /* 10% AÇÃO & FEEDBACK (Direcionamento e alertas)       */
+  /* ---------------------------------------------------- */
+  
+  /* Ação Principal (Botões "Vender", "Finalizar", "Login") */
+  --color-primary: #FF8906; 
+  
+  /* Sucesso e Feedback Positivo (Tags "Online", "Pago", ícones de check) */
+  --color-accent: #ABD1C6; 
+  
+  /* (Opcional) Destaque alternativo mais forte se o verde claro sumir no fundo branco */
+  --color-accent-strong: #004643; 
+  
+  /* Alerta Crítico (Vermelho para "Cancelar", "Estoque Vazio", "Offline") */
+  --color-danger: #E53170; /* Um tom de rosa/vermelho vibrante que harmoniza com a paleta do Happy Hues */
+
+  */
+}

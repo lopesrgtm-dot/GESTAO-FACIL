@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Cadastro do Estabelecimento (Mobile)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="mobile-onboarding.css" />
+</head>
+<body>
+
+  <main class="phone-frame" aria-label="Cadastro do Estabelecimento Mobile">
+    <!-- Topbar Compacta -->
+    <header class="mobile-top-nav">
+      <div class="status-bar status-bar--dark">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="nav-title-row">
+        <a href="login.html" class="back-btn" aria-label="Voltar para o login">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </a>
+        <div>
+          <span class="nav-eyebrow">Novo Negócio</span>
+          <h2>Cadastro do Estabelecimento</h2>
+        </div>
+      </div>
+    </header>
+
+    <!-- Área Rolável do Formulário -->
+    <section class="mobile-scroll-body">
+      <p class="form-intro">Preencha os dados do negócio e do administrador principal.</p>
+
+      <form id="mobileEstForm" novalidate>
+        <!-- BLOCO 1: DADOS DO ESTABELECIMENTO (MER v5.4) -->
+        <div class="m-card">
+          <h3 class="m-card__title">1. Dados do Estabelecimento</h3>
+
+          <label class="m-label">Segmento principal *</label>
+          <div class="m-segment-grid" id="mSegmentGrid">
+            <button type="button" class="m-seg-btn active" data-segment="Hamburgueria">🍔 Hamburgueria</button>
+            <button type="button" class="m-seg-btn" data-segment="Food Truck">🚚 Food Truck</button>
+            <button type="button" class="m-seg-btn" data-segment="Lanchonete">🌭 Lanchonete</button>
+            <button type="button" class="m-seg-btn" data-segment="Trailer / Rua">🛒 Trailer / Rua</button>
+          </div>
+
+          <div class="m-field">
+            <label for="mEstNome">Nome Fantasia ou Razão Social *</label>
+            <input type="text" id="mEstNome" maxlength="150" placeholder="Ex: Brasa Burger & Co." required />
+          </div>
+
+          <div class="m-field-2col">
+            <div class="m-field">
+              <label for="mEstDoc">CPF ou CNPJ</label>
+              <input type="text" id="mEstDoc" maxlength="20" placeholder="00.000.000/0001-00" />
+            </div>
+            <div class="m-field">
+              <label for="mEstTel">WhatsApp / Tel *</label>
+              <input type="tel" id="mEstTel" maxlength="20" placeholder="(13) 99999-0000" required />
+            </div>
+          </div>
+
+          <div class="m-field">
+            <label for="mEstEnd">Endereço ou Ponto Fixo de Operação</label>
+            <input type="text" id="mEstEnd" maxlength="255" placeholder="Rua, número, bairro ou ponto de parada" />
+          </div>
+        </div>
+
+        <!-- BLOCO 2: DADOS DO PROPRIETÁRIO (ADMIN MASTER) -->
+        <div class="m-card">
+          <h3 class="m-card__title">2. Dados do Proprietário (Admin Master)</h3>
+
+          <div class="m-field">
+            <label for="mAdmNome">Seu Nome Completo *</label>
+            <input type="text" id="mAdmNome" maxlength="150" placeholder="Ex: Marcelo Marques" required />
+          </div>
+
+          <div class="m-field">
+            <label for="mAdmEmail">E-mail de Acesso *</label>
+            <input type="email" id="mAdmEmail" maxlength="150" placeholder="dono@sualoja.com.br" required />
+          </div>
+
+          <div class="m-field">
+            <label for="mAdmSenha">Senha Master (mín. 6 dígitos) *</label>
+            <input type="password" id="mAdmSenha" minlength="6" placeholder="••••••" required />
+          </div>
+        </div>
+
+        <p id="mFormError" class="inline-error">
+          Preencha os campos obrigatórios (*) e crie uma senha com pelo menos 6 caracteres.
+        </p>
+
+        <button type="submit" class="btn-gold">
+          CADASTRAR E CONFIGURAR MEU APP
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // Seleção de segmento
+    const segBtns = document.querySelectorAll('.m-seg-btn');
+    let selectedSegment = 'Hamburgueria';
+
+    segBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        segBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedSegment = btn.dataset.segment;
+      });
+    });
+
+    // Máscara de telefone
+    const telEl = document.getElementById('mEstTel');
+    telEl.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6) e.target.value = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      else if (v.length > 2) e.target.value = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      else e.target.value = v;
+    });
+
+    // Submissão -> Salva no localStorage e abre o Controle do Estabelecimento Mobile
+    document.getElementById('mobileEstForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('mEstNome').value.trim();
+      const documento = document.getElementById('mEstDoc').value.trim();
+      const telefone = document.getElementById('mEstTel').value.trim();
+      const endereco = document.getElementById('mEstEnd').value.trim();
+      const admNome = document.getElementById('mAdmNome').value.trim();
+      const admEmail = document.getElementById('mAdmEmail').value.trim();
+      const admSenha = document.getElementById('mAdmSenha').value;
+      const err = document.getElementById('mFormError');
+
+      if (!nome || !telefone || !admNome || !admEmail.includes('@') || admSenha.length < 6) {
+        err.style.display = 'block';
+        return;
+      }
+      err.style.display = 'none';
+
+      const tenantPayload = {
+        estabelecimento: {
+          id_estabelecimento: Date.now(),
+          nome,
+          segmento: selectedSegment,
+          documento: documento || null,
+          telefone,
+          endereco: endereco || null,
+          criado_em: new Date().toISOString()
+        },
+        aparencia: {
+          cor_destaque: '#EBC310',
+          tema_nome: 'Amarelo Cheddar',
+          canais_venda: ['BALCAO', 'MESA', 'DELIVERY'],
+          mensagem_recibo: 'Obrigado pela preferência! Volte sempre.'
+        },
+        modulos: {
+          pdv_caixa: true,
+          estoque_ledger: true,
+          ficha_tecnica: true,
+          fiado_recebimentos: true,
+          pacotes_consumo: false,
+          cardapio_qr: true,
+          eventos_rotas_gps: selectedSegment === 'Food Truck' || selectedSegment === 'Trailer / Rua',
+          estoque_negativo_autorizado: false
+        },
+        equipe: [
+          {
+            id_usuario: 1,
+            nome: admNome,
+            email: admEmail,
+            grupo: 'ADMIN_MASTER',
+            grupo_label: 'Proprietário (Admin Master)',
+            ativo: true,
+            is_owner: true
+          }
+        ]
+      };
+
+      localStorage.setItem('gf_tenant_setup', JSON.stringify(tenantPayload));
+      localStorage.setItem('gf_usuario', JSON.stringify({ nome: admNome, email: admEmail, ativo: true }));
+
+      window.location.href = 'controle-estabelecimento-mobile.html';
+    });
+  </script>
+</body>
+</html>

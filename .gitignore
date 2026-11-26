@@ -1,0 +1,71 @@
+# Dependências e pacotes
+node_modules/
+jspm_packages/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Variáveis de ambiente e credenciais
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+serviceAccountKey*.json
+
+# Builds e artefatos de compilação
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vercel/
+.render/
+*.tsbuildinfo
+
+# Logs e arquivos temporários
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# Bancos de dados locais / dumps
+*.sqlite
+*.sqlite3
+*.db
+*.sql.gz
+
+# Capturas de tela, vídeos gerados e exports pesados
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.mp4
+*.avi
+*.mov
+*.zip
+*.rar
+*.7z
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores e IDEs
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/

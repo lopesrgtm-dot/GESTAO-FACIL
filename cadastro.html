@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestãoFácil — Criar Conta</title>
+  <link rel="stylesheet" href="cadastro.css" />
+</head>
+<body>
+
+  <!-- MOLDURA DO DISPOSITIVO MOBILE (375x812) -->
+  <div class="phone-frame">
+
+    <!-- CABEÇALHO COMPACTO -->
+    <header class="top-banner">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-bar__right">
+          <span class="status-badge">
+            <span class="status-badge__dot"></span>
+            Online
+          </span>
+          <span>100%</span>
+        </div>
+      </div>
+
+      <div class="banner-nav">
+        <a href="login.html" class="back-btn" aria-label="Voltar para o login">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Voltar
+        </a>
+
+        <div class="banner-brand-inline">
+          <img src="logo2.svg" alt="Gestão Fácil" class="banner-brand-inline__icon" />
+          <span class="banner-brand-inline__name">GESTÃO FÁCIL</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CARD PRINCIPAL DE CADASTRO DE USUÁRIO -->
+    <main class="register-card">
+      <div class="register-card__body">
+        <div class="register-header">
+          <h1 class="register-header__title">Crie sua conta</h1>
+          <p class="register-header__desc">Cadastre seu usuário para acessar o sistema</p>
+        </div>
+
+        <form id="registerForm" class="register-form" novalidate>
+          
+          <!-- Campo: nome (VARCHAR 150 - Obrigatório) -->
+          <div class="input-group">
+            <label for="userName" class="field-label">Nome completo</label>
+            <div class="input-field">
+              <svg class="input-field__icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+              <input type="text" id="userName" name="nome" maxlength="150" placeholder="Ex: Marcelo Lopes" required />
+            </div>
+          </div>
+
+          <!-- Campo: email (VARCHAR 150 UNIQUE - Obrigatório) -->
+          <div class="input-group">
+            <label for="userEmail" class="field-label">E-mail de acesso</label>
+            <div class="input-field">
+              <svg class="input-field__icon" viewBox="0 0 24 24">
+                <rect x="2" y="4" width="20" height="16" rx="3" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+              <input type="email" id="userEmail" name="email" maxlength="150" placeholder="seuemail@exemplo.com" required />
+            </div>
+          </div>
+
+          <!-- Campo: senha (gera senha_hash no backend - Obrigatório) -->
+          <div class="input-group">
+            <label for="userPassword" class="field-label">Senha</label>
+            <div class="input-field">
+              <svg class="input-field__icon" viewBox="0 0 24 24">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <input type="password" id="userPassword" name="senha" placeholder="Mínimo de 6 caracteres" required />
+              <button type="button" id="togglePass" class="input-field__toggle" aria-label="Mostrar ou ocultar senha">
+                <svg viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirmar Senha -->
+          <div class="input-group">
+            <label for="userConfirmPassword" class="field-label">Confirmar senha</label>
+            <div class="input-field">
+              <svg class="input-field__icon" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <input type="password" id="userConfirmPassword" placeholder="Repita a senha criada" required />
+            </div>
+          </div>
+
+          <!-- Mensagens de Validação -->
+          <span id="errorMsg" class="form-error">Preencha todos os campos corretamente e confirme a senha (mín. 6 dígitos).</span>
+          <span id="successMsg" class="form-success">Conta criada! Avançando para vincular seu estabelecimento...</span>
+
+          <!-- Botão Principal -->
+          <button type="submit" class="btn-primary">CONTINUAR</button>
+        </form>
+      </div>
+
+      <!-- RODAPÉ -->
+      <footer class="register-footer">
+        Já tem uma conta? <a href="login.html">Faça login</a>
+      </footer>
+    </main>
+
+  </div>
+
+  <script>
+    // Mostrar / ocultar senha
+    const togglePass = document.getElementById('togglePass');
+    const passwordInput = document.getElementById('userPassword');
+
+    togglePass.addEventListener('click', () => {
+      passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+    });
+
+    // Validação e persistência alinhada à tabela USUARIO
+    const registerForm = document.getElementById('registerForm');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('userName').value.trim();
+      const email = document.getElementById('userEmail').value.trim();
+      const senha = passwordInput.value;
+      const confirmar = document.getElementById('userConfirmPassword').value;
+
+      if (!nome || !email.includes('@') || senha.length < 6 || senha !== confirmar) {
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'block';
+
+      // Objeto pronto para o endpoint POST /usuarios (Tabela USUARIO)
+      const usuarioPayload = {
+        nome,
+        email,
+        senha,
+        ativo: true
+      };
+
+      localStorage.setItem('gf_usuario_cadastrado', JSON.stringify(usuarioPayload));
+
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1100);
+    });
+  </script>
+
+</body>
+</html>

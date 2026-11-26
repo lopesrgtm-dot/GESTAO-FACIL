@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0; url=dashboard-mobile.html" />
+  <title>GestãoFácil — Dashboard</title>
+  <script>window.location.replace('dashboard-mobile.html');</script>
+</head>
+<body></body>
+</html>
+
+<body>
+
+  <main class="phone-frame" aria-label="Tela Inicial GestãoFácil">
+    <!-- Cabeçalho Escuro Moderno -->
+    <header class="mobile-top-nav home-header">
+      <div class="status-bar status-bar--dark">
+        <span class="status-bar__time">9:41</span>
+        <div class="status-bar__right">
+          <span class="badge-conn badge-conn--dark">• Online</span>
+          <span class="status-bar__battery">100%</span>
+        </div>
+      </div>
+
+      <div class="home-topbar">
+        <div class="home-brand">
+          <span class="home-brand__name">Gestão<strong>Fácil</strong></span>
+          <span class="badge-gold-pill" id="homeSegmentBadge">Hamburgueria</span>
+        </div>
+        <a href="login.html" id="btnHomeLogout" class="exit-pill" aria-label="Sair da conta">Sair</a>
+      </div>
+
+      <div class="home-store-strip">
+        <div>
+          <p class="home-greeting" id="homeGreeting">Olá, Proprietário</p>
+          <h1 class="home-store-title" id="homeStoreName">Brasa Burger &amp; Co.</h1>
+        </div>
+        <span class="role-chip" id="homeRoleChip">Admin Master</span>
+      </div>
+    </header>
+
+    <!-- Corpo Rolável com as Rotas -->
+    <section class="mobile-scroll-body home-body">
+
+      <!-- ROTA 1: DASHBOARD (Destaque Principal) -->
+      <a href="dashboard-mobile.html" id="routeDashboard" class="hub-hero-card" aria-label="Abrir Dashboard">
+        <div class="hub-hero-card__top">
+          <span class="hub-hero-card__eyebrow">Visão Geral do Turno</span>
+          <span class="hub-pill-live" id="heroShiftBadge">● Caixa Aberto</span>
+        </div>
+        <div class="hub-hero-card__main">
+          <div>
+            <strong class="hub-hero-card__title">Dashboard</strong>
+            <p class="hub-hero-card__sub" id="heroSalesPreview">Vendas hoje: R$ 339,00 • 5 pedidos</p>
+          </div>
+          <span class="hub-arrow-circle" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <div class="hub-section-label">
+        <span>Operação &amp; Conferência</span>
+        <small>Acesso rápido</small>
+      </div>
+
+      <!-- GRADE DE MÓDULOS: PEDIDOS (Opcional), CAIXA, ESTOQUE, FIADO -->
+      <div class="hub-grid">
+
+        <!-- ROTA 2: PEDIDOS (Módulo Opcional) -->
+        <a href="pedidos-mobile.html" id="routePedidos" class="hub-tile" aria-label="Abrir Pedidos">
+          <div class="hub-tile__head">
+            <span class="hub-icon hub-icon--gold">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+                <rect x="9" y="3" width="6" height="4" rx="1" />
+                <path d="M9 12h6M9 16h4" />
+              </svg>
+            </span>
+            <span class="hub-badge hub-badge--gold" id="badgePedidos">3 ativos</span>
+          </div>
+          <strong class="hub-tile__title">Pedidos</strong>
+          <small class="hub-tile__desc">Comandas, preparo e entregas</small>
+        </a>
+
+        <!-- ROTA 3: CAIXA -->
+        <a href="caixa-mobile.html" id="routeCaixa" class="hub-tile" aria-label="Abrir Caixa">
+          <div class="hub-tile__head">
+            <span class="hub-icon hub-icon--mint">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="2" y="5" width="20" height="14" rx="2" />
+                <path d="M2 10h20M6 15h4" />
+              </svg>
+            </span>
+            <span class="hub-badge hub-badge--mint" id="badgeCaixa">R$ 339,00</span>
+          </div>
+          <strong class="hub-tile__title">Caixa</strong>
+          <small class="hub-tile__desc">Conferência de turno e sangria</small>
+        </a>
+
+        <!-- ROTA 4: ESTOQUE -->
+        <a href="estoque-mobile.html" id="routeEstoque" class="hub-tile" aria-label="Abrir Estoque">
+          <div class="hub-tile__head">
+            <span class="hub-icon hub-icon--red">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" />
+              </svg>
+            </span>
+            <span class="hub-badge hub-badge--red" id="badgeEstoque">3 críticos</span>
+          </div>
+          <strong class="hub-tile__title">Estoque</strong>
+          <small class="hub-tile__desc">Insumos, ficha técnica e saldo</small>
+        </a>
+
+        <!-- ROTA 5: FIADO -->
+        <a href="fiado-mobile.html" id="routeFiado" class="hub-tile" aria-label="Abrir Fiado">
+          <div class="hub-tile__head">
+            <span class="hub-icon hub-icon--blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </span>
+            <span class="hub-badge hub-badge--neutral" id="badgeFiado">R$ 150,00</span>
+          </div>
+          <strong class="hub-tile__title">Fiado</strong>
+          <small class="hub-tile__desc" id="descFiado">Limites e contas a receber</small>
+        </a>
+
+      </div>
+
+      <!-- ROTA 6: CONTROLE DO ESTABELECIMENTO (Exclusivo Admin Master / ADM) -->
+      <div id="adminControlWrapper">
+        <div class="hub-section-label" style="margin-top: 14px;">
+          <span>Administração da Loja</span>
+          <small>Acesso restrito</small>
+        </div>
+
+        <a href="controle-estabelecimento-mobile.html" id="routeControle" class="hub-admin-card"
+          aria-label="Abrir Controle do App">
+          <div class="hub-admin-card__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          </div>
+          <div class="hub-admin-card__info">
+            <div class="hub-admin-card__title-row">
+              <strong>Controle do App</strong>
+              <span class="hub-master-tag">Dono / ADM</span>
+            </div>
+            <small>Módulos, equipe, permissões e visual</small>
+          </div>
+          <span class="hub-admin-card__chevron" aria-hidden="true">›</span>
+        </a>
+      </div>
+
+    </section>
+
+    <!-- Barra de Navegação Inferior Persistente -->
+    <nav class="bottom-nav" aria-label="Navegação Principal">
+      <a href="inicio-mobile.html" class="bottom-nav__item active" aria-current="page">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        <span>Início</span>
+      </a>
+      <a href="dashboard-mobile.html" id="navDashboard" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="pedidos-mobile.html" id="navSlot3" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+          <rect x="9" y="3" width="6" height="4" rx="1" />
+        </svg>
+        <span>Pedidos</span>
+      </a>
+      <a href="estoque-mobile.html" class="bottom-nav__item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path
+            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        </svg>
+        <span>Estoque</span>
+      </a>
+    </nav>
+
+    <div id="mToast" class="m-toast">Acesso restrito ao seu perfil</div>
+  </main>
+
+  <script>
+    // Inicializa dados base caso o usuário abra direto no Live Server sem passar pelo cadastro
+    let state = JSON.parse(localStorage.getItem('gf_tenant_setup'));
+    if (!state || !state.estabelecimento) {
+      state = {
+        estabelecimento: {
+          id_estabelecimento: 1,
+          nome: 'Brasa Burger & Co.',
+          segmento: 'Hamburgueria'
+        },
+        aparencia: {
+          cor_destaque: '#FFFFA2',
+          canais_venda: ['BALCAO', 'MESA', 'DELIVERY']
+        },
+        modulos: {
+          pedidos_cozinha: true,
+          ficha_tecnica: true,
+          fiado_recebimentos: true,
+          pacotes_consumo: false,
+          cardapio_qr: true,
+          eventos_rotas_gps: false,
+          estoque_negativo_autorizado: false
+        },
+        equipe: [
+          {
+            id_usuario: 1,
+            nome: 'Marcelo Marques',
+            email: 'lopes.rgtm@gmail.com',
+            grupo: 'ADMIN_MASTER',
+            grupo_label: 'Proprietário (Admin Master)',
+            is_owner: true
+          }
+        ]
+      };
+      localStorage.setItem('gf_tenant_setup', JSON.stringify(state));
+    }
+
+    // Inicializa dados operacionais compartilhados
+    let appData = JSON.parse(localStorage.getItem('gf_app_data'));
+    if (!appData) {
+      appData = {
+        caixa: {
+          aberto: true,
+          fundo_troco: 100.00,
+          pix: 185.00,
+          cartao: 112.00,
+          dinheiro: 42.00,
+          sangrias: 0.00
+        },
+        pedidos: [
+          { id: 31, cliente: 'Mesa 04', canal: 'MESA', itens: '2x Smash Duplo, 1x Batata', total: 68.00, status: 'EM_PREPARO', hora: '11:18' },
+          { id: 32, cliente: 'Balcão • Ana', canal: 'BALCAO', itens: '1x Combo Brasa Bacon', total: 39.00, status: 'PRONTO', hora: '11:14' },
+          { id: 33, cliente: 'Delivery • Carlos', canal: 'DELIVERY', itens: '2x X-Salada, 2x Refri Lata', total: 54.00, status: 'EM_PREPARO', hora: '11:20' },
+          { id: 34, cliente: 'Mesa 02', canal: 'MESA', itens: '1x Porção Onion Rings', total: 24.00, status: 'PRONTO', hora: '11:10' },
+          { id: 30, cliente: 'Balcão • João', canal: 'BALCAO', itens: '1x X-Burger Clássico', total: 26.00, status: 'ENTREGUE', hora: '10:55' }
+        ],
+        estoque: [
+          { id: 1, nome: 'Pão Brioche Selado', unidade: 'un', atual: 14, minimo: 30, categoria: 'Insumo' },
+          { id: 2, nome: 'Blend Bovino 180g', unidade: 'un', atual: 9, minimo: 25, categoria: 'Insumo' },
+          { id: 3, nome: 'Refrigerante Lata 350ml', unidade: 'un', atual: 8, minimo: 24, categoria: 'Bebida' },
+          { id: 4, nome: 'Queijo Cheddar Fatiado', unidade: 'kg', atual: 4.5, minimo: 2.0, categoria: 'Insumo' },
+          { id: 5, nome: 'Batata Palito Congelada', unidade: 'kg', atual: 12.0, minimo: 5.0, categoria: 'Insumo' }
+        ],
+        fiado: [
+          { id: 1, cliente: 'Rafael Oliveira', telefone: '(13) 99711-2233', limite: 200.00, saldo_devedor: 85.00, vencimento: 'Hoje' },
+          { id: 2, cliente: 'Camila Santos', telefone: '(13) 99644-8810', limite: 150.00, saldo_devedor: 65.00, vencimento: '22/11' },
+          { id: 3, cliente: 'Oficina do Beto', telefone: '(13) 99800-1122', limite: 300.00, saldo_devedor: 0.00, vencimento: 'Em dia' }
+        ]
+      };
+      localStorage.setItem('gf_app_data', JSON.stringify(appData));
+    }
+
+    const session = JSON.parse(localStorage.getItem('gf_active_session')) || state.equipe[0];
+    const isManager = session.grupo === 'ADMIN_MASTER' || session.grupo === 'ADM';
+    const isWaiter = session.grupo === 'GARCOM';
+
+    // Personalização do cabeçalho com os dados do estabelecimento
+    const accent = (state.aparencia && state.aparencia.cor_destaque) || '#FFFFA2';
+    const segBadge = document.getElementById('homeSegmentBadge');
+    document.getElementById('homeStoreName').textContent = state.estabelecimento.nome;
+    segBadge.textContent = state.estabelecimento.segmento;
+    segBadge.style.background = accent;
+    if (['#3E7B6B', '#EF4565', '#0F0E17'].includes(accent)) {
+      segBadge.style.color = 'var(--surface-light)';
+      segBadge.style.borderColor = accent;
+    }
+
+    const firstName = session.nome.split(' ')[0];
+    document.getElementById('homeGreeting').textContent = `Olá, ${firstName}`;
+
+    const roleNames = {
+      ADMIN_MASTER: 'Admin Master',
+      ADM: 'Administrador',
+      CAIXA: 'Operador Caixa',
+      GARCOM: 'Garçom'
+    };
+    document.getElementById('homeRoleChip').textContent = roleNames[session.grupo] || session.grupo;
+
+    // Indicadores dinâmicos nos cards (lê pedidos da tela dedicada se existirem)
+    const pedidosSalvos = JSON.parse(localStorage.getItem('gf_pedidos'));
+    const listaPedidos = pedidosSalvos || appData.pedidos;
+    const ativosCount = listaPedidos.filter(p => p.status !== 'entregue' && p.status !== 'ENTREGUE').length;
+
+    const totalVendas = appData.caixa.pix + appData.caixa.cartao + appData.caixa.dinheiro;
+    const criticosCount = appData.estoque.filter(e => e.atual <= e.minimo).length;
+    const totalFiado = appData.fiado.reduce((acc, f) => acc + f.saldo_devedor, 0);
+
+    const fmtBRL = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    document.getElementById('heroShiftBadge').textContent = appData.caixa.aberto ? '● Caixa Aberto' : '● Caixa Fechado';
+    document.getElementById('heroSalesPreview').textContent = isWaiter
+      ? `${ativosCount} pedidos em andamento na cozinha`
+      : `Vendas hoje: ${fmtBRL(totalVendas)} • ${listaPedidos.length} pedidos`;
+
+    document.getElementById('badgePedidos').textContent = `${ativosCount} ativos`;
+    document.getElementById('badgeCaixa').textContent = fmtBRL(totalVendas);
+    document.getElementById('badgeEstoque').textContent = criticosCount > 0 ? `${criticosCount} críticos` : 'Tudo OK';
+    document.getElementById('badgeFiado').textContent = fmtBRL(totalFiado);
+
+    // Reatividade aos módulos opcionais configurados no Controle do App
+    const pedidosAtivo = state.modulos && state.modulos.pedidos_cozinha !== false;
+    if (!pedidosAtivo) {
+      document.getElementById('routePedidos').style.display = 'none';
+      const navSlot3 = document.getElementById('navSlot3');
+      if (navSlot3) {
+        navSlot3.href = 'caixa-mobile.html';
+        navSlot3.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+            <path d="M2 10h20M6 15h4" />
+          </svg>
+          <span>Caixa</span>
+        `;
+      }
+    }
+
+    const fiadoAtivo = state.modulos && state.modulos.fiado_recebimentos !== false;
+    if (!fiadoAtivo) {
+      const tileFiado = document.getElementById('routeFiado');
+      tileFiado.classList.add('hub-tile--disabled');
+      document.getElementById('badgeFiado').textContent = 'Desativado';
+      document.getElementById('descFiado').textContent = 'Ative em Controle do App';
+    }
+
+    // Controle de acesso por cargo
+    if (!isManager) {
+      document.getElementById('adminControlWrapper').style.display = 'none';
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('mToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    if (isWaiter) {
+      ['routeCaixa', 'routeFiado', 'routeDashboard', 'navDashboard'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('hub-tile--locked');
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast('Tela restrita ao Caixa ou Administrador.');
+          });
+        }
+      });
+      document.getElementById('badgeCaixa').textContent = 'Bloqueado';
+      document.getElementById('badgeFiado').textContent = 'Bloqueado';
+    }
+
+    document.getElementById('btnHomeLogout').addEventListener('click', () => {
+      localStorage.removeItem('gf_active_session');
+    });
+  </script>
+</body>
+
+</html>
