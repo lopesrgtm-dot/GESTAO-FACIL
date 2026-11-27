@@ -22,7 +22,7 @@
 :root {
   /* 6 Cores Principais */
   --bg-dark: #0F0E17;
-  --accent-gold: #FFFFA2;
+  --accent-gold: #FFCA40;
   --support-sage: #ABD1C6;
   --surface-light: #FFFFFE;
   --text-muted: #A7A9BE;
@@ -30,7 +30,7 @@
 
   /* 6 Tonalidades Dark (Shades) */
   --bg-dark-shade: #07060C;
-  --accent-gold-shade: #E6C229;
+  --accent-gold-shade: #FFCA40;
   --support-sage-shade: #3E7B6B;
   --surface-light-shade: #F3F4F8;
   --text-muted-shade: #5E6073;
